@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculadora de Salário Líquido em Portugal 2025. Calcule quanto recebe após IRS e Segurança Social. Grátis e simples.">
+    <meta name="keywords" content="calculadora salário, salário líquido portugal, calcular IRS, salário bruto líquido">
+    <meta name="author" content="André">
+    <title>Calculadora de Salário Líquido Portugal 2025 | Grátis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Espaço para Anúncio Topo */
+        .ad-top {
+            background: #fff;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            border: 2px dashed #ddd;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 20px;
+        }
+
+        .calculator-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+
+            input:focus, select:focus {
+                outline: none;
+                border-color: #667eea;
+            }
+
+        .btn-calculate {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s;
+        }
+
+            .btn-calculate:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            }
+
+        .results {
+            margin-top: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            display: none;
+        }
+
+            .results.show {
+                display: block;
+                animation: slideIn 0.4s ease;
+            }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+            .result-item:last-child {
+                border-bottom: none;
+            }
+
+        .result-label {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .result-value {
+            font-weight: 600;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .result-final {
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            color: white;
+            text-align: center;
+        }
+
+            .result-final .amount {
+                font-size: 36px;
+                font-weight: 700;
+                margin-top: 10px;
+            }
+
+        /* Sidebar para Anúncios */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .ad-sidebar {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            border: 2px dashed #ddd;
+            text-align: center;
+        }
+
+        /* Conteúdo Extra para SEO */
+        .info-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+            .info-section h2 {
+                color: #333;
+                margin-bottom: 15px;
+                font-size: 22px;
+            }
+
+            .info-section p {
+                color: #666;
+                line-height: 1.8;
+                margin-bottom: 15px;
+            }
+
+            .info-section ul {
+                margin-left: 20px;
+                color: #666;
+                line-height: 1.8;
+            }
+
+        /* Espaço para Anúncio Rodapé */
+        .ad-footer {
+            background: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-top: 20px;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            border: 2px dashed #ddd;
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 30px;
+            padding: 20px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Espaço para Google AdSense - Topo -->
+        <div class="ad-top">
+            <p>📢 Espaço para Google AdSense (728x90 ou Responsivo)</p>
+        </div>
+
+        <div class="main-content">
+            <div class="calculator-section">
+                <h1>💰 Calculadora de Salário Líquido Portugal 2025</h1>
+                <p class="subtitle">Descubra quanto vai receber após descontos de IRS e Segurança Social</p>
+
+                <div class="input-group">
+                    <label for="salarioBruto">Salário Bruto Mensal (€)</label>
+                    <input type="number" id="salarioBruto" placeholder="Ex: 1500" min="0" step="0.01">
+                </div>
+
+                <div class="input-group">
+                    <label for="subsidioAlimentacao">Subsídio de Alimentação (€/dia)</label>
+                    <input type="number" id="subsidioAlimentacao" placeholder="Ex: 6.00" min="0" step="0.01" value="0">
+                </div>
+
+                <div class="input-group">
+                    <label for="estadoCivil">Estado Civil</label>
+                    <select id="estadoCivil">
+                        <option value="nao_casado">Não Casado</option>
+                        <option value="casado_unico">Casado Único Titular</option>
+                        <option value="casado_dois">Casado Dois Titulares</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="dependentes">Número de Dependentes</label>
+                    <input type="number" id="dependentes" placeholder="0" min="0" value="0">
+                </div>
+
+                <button class="btn-calculate" onclick="calcular()">Calcular Salário Líquido</button>
+
+                <div class="results" id="results">
+                    <h3 style="margin-bottom: 20px; color: #333;">📊 Resultado da Simulação</h3>
+
+                    <div class="result-item">
+                        <span class="result-label">Salário Bruto Mensal</span>
+                        <span class="result-value" id="brutomensal">€0.00</span>
+                    </div>
+
+                    <div class="result-item">
+                        <span class="result-label">Subsídio de Alimentação (22 dias)</span>
+                        <span class="result-value" id="subsidiototal">€0.00</span>
+                    </div>
+
+                    <div class="result-item">
+                        <span class="result-label">Segurança Social (11%)</span>
+                        <span class="result-value" id="ss" style="color: #e74c3c;">-€0.00</span>
+                    </div>
+
+                    <div class="result-item">
+                        <span class="result-label">IRS Retido</span>
+                        <span class="result-value" id="irs" style="color: #e74c3c;">-€0.00</span>
+                    </div>
+
+                    <div class="result-final">
+                        <div style="font-size: 16px; opacity: 0.9;">💵 Salário Líquido Mensal</div>
+                        <div class="amount" id="liquido">€0.00</div>
+                        <div style="font-size: 14px; margin-top: 10px; opacity: 0.8;">Valor aproximado após todos os descontos</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar para Anúncios -->
+            <div class="sidebar">
+                <div class="ad-sidebar">
+                    <p>📢 Google AdSense<br>(300x250)</p>
+                </div>
+                <div class="ad-sidebar">
+                    <p>📢 Google AdSense<br>(300x600)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conteúdo para SEO -->
+        <div class="info-section">
+            <h2>Como Funciona o Cálculo do Salário Líquido em Portugal?</h2>
+            <p>O salário líquido é o valor que efetivamente recebe na sua conta bancária após todos os descontos obrigatórios. Em Portugal, os principais descontos são:</p>
+
+            <ul>
+                <li><strong>Segurança Social (11%):</strong> Contribuição obrigatória para a Segurança Social, calculada sobre o salário bruto.</li>
+                <li><strong>IRS (Imposto sobre o Rendimento):</strong> Varia consoante o escalão de rendimento, estado civil e número de dependentes.</li>
+            </ul>
+
+            <h2 style="margin-top: 25px;">Tabelas de IRS 2025</h2>
+            <p>As taxas de IRS em Portugal são progressivas e variam entre 13.25% e 48% dependendo do seu rendimento anual. Esta calculadora usa valores aproximados baseados nas tabelas oficiais.</p>
+
+            <h2 style="margin-top: 25px;">Subsídio de Alimentação</h2>
+            <p>O subsídio de alimentação até 10.20€ por dia está isento de IRS e Segurança Social. Valores acima deste limite são tributados.</p>
+        </div>
+
+        <!-- Espaço para Anúncio Rodapé -->
+        <div class="ad-footer">
+            <p>📢 Espaço para Google AdSense (728x90 ou Responsivo)</p>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Calculadora Salário Líquido Portugal | Desenvolvido por André</p>
+            <p style="margin-top: 10px; font-size: 12px;">Aviso: Valores aproximados. Consulte um contabilista para cálculos exatos.</p>
+        </footer>
+    </div>
+
+    <script>
+        function calcular() {
+            const salarioBruto = parseFloat(document.getElementById('salarioBruto').value) || 0;
+            const subsidioAlimentacao = parseFloat(document.getElementById('subsidioAlimentacao').value) || 0;
+            const estadoCivil = document.getElementById('estadoCivil').value;
+            const dependentes = parseInt(document.getElementById('dependentes').value) || 0;
+
+            if (salarioBruto <= 0) {
+                alert('Por favor, insira um salário bruto válido.');
+                return;
+            }
+
+            // Cálculo Segurança Social (11%)
+            const ss = salarioBruto * 0.11;
+
+            // Subsídio de Alimentação (22 dias úteis)
+            const subsidioMensal = subsidioAlimentacao * 22;
+
+            // Cálculo IRS simplificado (aproximado)
+            const salarioAnual = salarioBruto * 14; // Incluindo subsídios
+            let taxaIRS = 0;
+
+            // Taxas simplificadas baseadas em escalões
+            if (salarioAnual <= 7703) {
+                taxaIRS = 0.1325;
+            } else if (salarioAnual <= 11623) {
+                taxaIRS = 0.18;
+            } else if (salarioAnual <= 16472) {
+                taxaIRS = 0.23;
+            } else if (salarioAnual <= 21321) {
+                taxaIRS = 0.26;
+            } else if (salarioAnual <= 27146) {
+                taxaIRS = 0.3275;
+            } else if (salarioAnual <= 39791) {
+                taxaIRS = 0.37;
+            } else if (salarioAnual <= 51997) {
+                taxaIRS = 0.435;
+            } else if (salarioAnual <= 81199) {
+                taxaIRS = 0.45;
+            } else {
+                taxaIRS = 0.48;
+            }
+
+            // Ajuste por estado civil e dependentes (simplificado)
+            if (estadoCivil === 'casado_dois') {
+                taxaIRS *= 0.9;
+            }
+
+            taxaIRS -= (dependentes * 0.01); // Redução por dependente
+
+            const irs = salarioBruto * taxaIRS;
+
+            // Salário Líquido
+            const salarioLiquido = salarioBruto - ss - irs + subsidioMensal;
+
+            // Mostrar resultados
+            document.getElementById('brutomensal').textContent = '€' + salarioBruto.toFixed(2);
+            document.getElementById('subsidiototal').textContent = '€' + subsidioMensal.toFixed(2);
+            document.getElementById('ss').textContent = '-€' + ss.toFixed(2);
+            document.getElementById('irs').textContent = '-€' + irs.toFixed(2);
+            document.getElementById('liquido').textContent = '€' + salarioLiquido.toFixed(2);
+
+            document.getElementById('results').classList.add('show');
+
+            // Scroll suave para resultados
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Permitir calcular com Enter
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                calcular();
+            }
+        });
+    </script>
+</body>
+</html>

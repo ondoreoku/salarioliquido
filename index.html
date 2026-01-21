@@ -92,10 +92,10 @@
             transition: border 0.3s;
         }
 
-        input:focus, select:focus {
-            outline: none;
-            border-color: #667eea;
-        }
+            input:focus, select:focus {
+                outline: none;
+                border-color: #667eea;
+            }
 
         .btn-calculate {
             width: 100%;
@@ -111,10 +111,10 @@
             transition: transform 0.2s;
         }
 
-        .btn-calculate:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
-        }
+            .btn-calculate:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            }
 
         .results {
             margin-top: 30px;
@@ -124,10 +124,10 @@
             display: none;
         }
 
-        .results.show {
-            display: block;
-            animation: slideIn 0.4s ease;
-        }
+            .results.show {
+                display: block;
+                animation: slideIn 0.4s ease;
+            }
 
         @keyframes slideIn {
             from {
@@ -148,9 +148,9 @@
             border-bottom: 1px solid #e0e0e0;
         }
 
-        .result-item:last-child {
-            border-bottom: none;
-        }
+            .result-item:last-child {
+                border-bottom: none;
+            }
 
         .result-label {
             color: #666;
@@ -172,11 +172,11 @@
             text-align: center;
         }
 
-        .result-final .amount {
-            font-size: 36px;
-            font-weight: 700;
-            margin-top: 10px;
-        }
+            .result-final .amount {
+                font-size: 36px;
+                font-weight: 700;
+                margin-top: 10px;
+            }
 
         /* Sidebar para Anúncios */
         .sidebar {
@@ -207,23 +207,23 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
 
-        .info-section h2 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 22px;
-        }
+            .info-section h2 {
+                color: #333;
+                margin-bottom: 15px;
+                font-size: 22px;
+            }
 
-        .info-section p {
-            color: #666;
-            line-height: 1.8;
-            margin-bottom: 15px;
-        }
+            .info-section p {
+                color: #666;
+                line-height: 1.8;
+                margin-bottom: 15px;
+            }
 
-        .info-section ul {
-            margin-left: 20px;
-            color: #666;
-            line-height: 1.8;
-        }
+            .info-section ul {
+                margin-left: 20px;
+                color: #666;
+                line-height: 1.8;
+            }
 
         /* Espaço para Anúncio Rodapé */
         .ad-footer {
@@ -459,4 +459,30 @@
             taxaIRS -= (dependentes * 0.01);
             if (taxaIRS < 0) taxaIRS = 0;
 
-            const irs = sal
+            const irs = salarioBruto * taxaIRS;
+
+            // Salários líquidos
+            const salarioLiquidoSemSubsidio = salarioBruto - ss - irs;
+            const salarioLiquidoComSubsidio = salarioLiquidoSemSubsidio + subsidioMensal;
+
+            // Atualizar resultados no HTML
+            document.getElementById('brutomensal').textContent = '€' + salarioBruto.toFixed(2);
+            document.getElementById('subsidiototal').textContent = '€' + subsidioMensal.toFixed(2);
+            document.getElementById('ss').textContent = '-€' + ss.toFixed(2);
+            document.getElementById('irs').textContent = '-€' + irs.toFixed(2);
+            document.getElementById('liquidoSemSubsidio').textContent = '€' + salarioLiquidoSemSubsidio.toFixed(2);
+            document.getElementById('liquidoComSubsidio').textContent = '€' + salarioLiquidoComSubsidio.toFixed(2);
+
+            document.getElementById('results').classList.add('show');
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Permitir calcular com Enter
+        document.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                calcular();
+            }
+        });
+    </script>
+</body>
+</html>

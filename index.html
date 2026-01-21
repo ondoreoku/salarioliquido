@@ -1,305 +1,593 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador de Salário Líquido 2026</title>
+    <title>Simulador de Salário Líquido PT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6163421497152187" crossorigin="anonymous"></script>
-
     <style>
         :root {
-            --primary: #1e40af;
-            --success: #059669;
-            --danger: #dc2626;
-            --bg: #f8fafc;
-            --card: #ffffff;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
+            --background: 0 0% 100%;
+            --foreground: 224 71.4% 4.1%;
+            --card: 0 0% 100%;
+            --card-foreground: 224 71.4% 4.1%;
+            --popover: 0 0% 100%;
+            --popover-foreground: 224 71.4% 4.1%;
+            --primary: 142.1 76.2% 36.3%;
+            --primary-foreground: 355.7 100% 97.3%;
+            --secondary: 220 14.3% 95.9%;
+            --secondary-foreground: 220.9 39.3% 11%;
+            --muted: 220 14.3% 95.9%;
+            --muted-foreground: 220 8.9% 46.1%;
+            --accent: 220 14.3% 95.9%;
+            --accent-foreground: 220.9 39.3% 11%;
+            --destructive: 0 84.2% 60.2%;
+            --destructive-foreground: 210 20% 98%;
+            --border: 220 13% 91%;
+            --input: 220 13% 91%;
+            --ring: 142.1 76.2% 36.3%;
+            --radius: 0.5rem;
+            --chart-1: 0 72% 51%;
+            --chart-2: 142.1 76.2% 36.3%;
+            --chart-3: 27 87% 67%;
+            --chart-4: 38 92% 50%;
+            --chart-5: 197 37% 24%;
+        }
+
+        .dark {
+            --background: 224 71.4% 4.1%;
+            --foreground: 210 20% 98%;
+            --card: 224 71.4% 4.1%;
+            --card-foreground: 210 20% 98%;
+            --popover: 224 71.4% 4.1%;
+            --popover-foreground: 210 20% 98%;
+            --primary: 142.1 76.2% 36.3%;
+            --primary-foreground: 355.7 100% 97.3%;
+            --secondary: 215 27.9% 16.9%;
+            --secondary-foreground: 210 20% 98%;
+            --muted: 215 27.9% 16.9%;
+            --muted-foreground: 217.9 10.6% 64.9%;
+            --accent: 215 27.9% 16.9%;
+            --accent-foreground: 210 20% 98%;
+            --destructive: 0 62.8% 30.6%;
+            --destructive-foreground: 210 20% 98%;
+            --border: 215 27.9% 16.9%;
+            --input: 215 27.9% 16.9%;
+            --ring: 142.1 76.2% 36.3%;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg);
-            color: var(--text-main);
-            margin: 0;
-            padding: 20px;
-            line-height: 1.5;
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
         }
 
-        .container { max-width: 900px; margin: 0 auto; }
-
-        .card {
-            background: var(--card);
-            padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-            margin-bottom: 2rem;
-            border: 1px solid var(--border);
+        .fade-in-0 {
+            animation: fade-in 0s ease-in-out;
         }
 
-        h2 { margin-top: 0; color: var(--primary); font-size: 1.5rem; border-bottom: 2px solid var(--bg); padding-bottom: 1rem; }
-        
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+        .duration-500 {
+            animation-duration: 500ms;
         }
 
-        .input-group { display: flex; flex-direction: column; }
-        label { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-main); text-transform: uppercase; letter-spacing: 0.5px; }
-        
-        input, select {
-            padding: 0.8rem;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            font-size: 1rem;
-            background: #fff;
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
-        .radio-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.5rem;
-            background: #f1f5f9;
-            padding: 0.4rem;
-            border-radius: 12px;
+        .animate-in {
+            animation-name: fade-in;
+            animation-fill-mode: forwards;
         }
 
-        .radio-group label {
-            margin: 0;
-            padding: 0.6rem;
-            text-align: center;
-            cursor: pointer;
-            font-size: 0.85rem;
-            border-radius: 8px;
-            transition: all 0.2s;
-            font-weight: 600;
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
         }
 
-        .radio-group input { display: none; }
-        .radio-group input:checked + span {
-            background: white;
-            color: var(--primary);
-            display: block;
-            border-radius: 8px;
-            padding: 0.5rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        .animate-spin {
+            animation: spin 1s linear infinite;
         }
 
-        .btn-calculate {
-            width: 100%;
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 1.2rem;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .btn-calculate:hover { background: #1e3a8a; transform: translateY(-1px); }
-
-        #results { display: none; }
-        #results.show { display: block; animation: slideUp 0.4s ease-out; }
-
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        .result-layout {
-            display: grid;
-            grid-template-columns: 1fr 320px;
-            gap: 2rem;
-        }
-
-        .res-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.8rem 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .highlight-box {
-            background: var(--primary);
-            color: white;
-            border-radius: 20px;
-            padding: 2rem;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .val { font-weight: 700; font-family: 'Monaco', 'Consolas', monospace; }
-        .neg { color: var(--danger); }
-        .pos { color: var(--success); }
-
-        /* Estilo para os anúncios */
-        .ad-container {
-            margin: 20px 0;
-            text-align: center;
-            background: #f1f5f9;
-            min-height: 90px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 10px;
-            color: #94a3b8;
-            font-size: 0.8rem;
-        }
-
-        @media (max-width: 768px) {
-            .result-layout { grid-template-columns: 1fr; }
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
         }
     </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: 'hsl(var(--background))',
+                        foreground: 'hsl(var(--foreground))',
+                        card: {
+                            DEFAULT: 'hsl(var(--card))',
+                            foreground: 'hsl(var(--card-foreground))',
+                        },
+                        popover: {
+                            DEFAULT: 'hsl(var(--popover))',
+                            foreground: 'hsl(var(--popover-foreground))',
+                        },
+                        primary: {
+                            DEFAULT: 'hsl(var(--primary))',
+                            foreground: 'hsl(var(--primary-foreground))',
+                        },
+                        secondary: {
+                            DEFAULT: 'hsl(var(--secondary))',
+                            foreground: 'hsl(var(--secondary-foreground))',
+                        },
+                        muted: {
+                            DEFAULT: 'hsl(var(--muted))',
+                            foreground: 'hsl(var(--muted-foreground))',
+                        },
+                        accent: {
+                            DEFAULT: 'hsl(var(--accent))',
+                            foreground: 'hsl(var(--accent-foreground))',
+                        },
+                        destructive: {
+                            DEFAULT: 'hsl(var(--destructive))',
+                            foreground: 'hsl(var(--destructive-foreground))',
+                        },
+                        border: 'hsl(var(--border))',
+                        input: 'hsl(var(--input))',
+                        ring: 'hsl(var(--ring))',
+                        chart: {
+                            '1': 'hsl(var(--chart-1))',
+                            '2': 'hsl(var(--chart-2))',
+                            '3': 'hsl(var(--chart-3))',
+                            '4': 'hsl(var(--chart-4))',
+                            '5': 'hsl(var(--chart-5))',
+                        }
+                    },
+                    borderRadius: {
+                        lg: 'var(--radius)',
+                        md: 'calc(var(--radius) - 2px)',
+                        sm: 'calc(var(--radius) - 4px)',
+                    },
+                }
+            }
+        }
+    </script>
 </head>
-<body>
+<body class="antialiased">
 
-<div class="container">
-    <div class="ad-container">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-6163421497152187"
-             data-ad-slot="AUTO_AD_SLOT_ID_AQUI"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-    </div>
+    <main class="container mx-auto px-4 py-8 sm:px-6 sm:py-12">
+        <div class="max-w-4xl mx-auto">
+            <header class="text-center mb-10">
+                <h1 class="text-3xl sm:text-4xl font-bold text-primary tracking-tight" style="color: hsl(var(--primary));">
+                    Simulador de Salário Líquido 2026
+                </h1>
+                <p class="mt-2 text-lg text-muted-foreground" style="color: hsl(var(--muted-foreground));">
+                    Calcule o seu rendimento como trabalhador por conta de outrem ou a recibos verdes.
+                </p>
+            </header>
 
-    <div class="card">
-        <h2>Simulador de Salário Mensal 2026</h2>
-        <div class="grid">
-            <div class="input-group">
-                <label>Salário Bruto (€)</label>
-                <input type="number" id="salarioBruto" value="1500">
-            </div>
-            <div class="input-group">
-                <label>Sub. Refeição / Dia (€)</label>
-                <input type="number" id="subsidioAlimentacao" value="10.00" step="0.10">
-            </div>
-            <div class="input-group">
-                <label>Estado Civil</label>
-                <select id="estadoCivil">
-                    <option value="solteiro" selected>Não Casado / 2 Titulares</option>
-                    <option value="casado_1">Casado 1 Titular</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label>Dependentes</label>
-                <input type="number" id="dependentes" value="0" min="0">
-            </div>
-            <div class="input-group">
-                <label>Receber Subsídio em:</label>
-                <div class="radio-group">
-                    <label><input type="radio" name="tipoSubsidio" value="dinheiro"> <span>Dinheiro</span></label>
-                    <label><input type="radio" name="tipoSubsidio" value="cartao" checked> <span>Cartão</span></label>
+            <!-- Tabs -->
+            <div class="w-full">
+                <div class="grid w-full grid-cols-2 p-1 rounded-md bg-muted" style="background-color: hsl(var(--muted));">
+                    <button id="tab-employee" class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm" data-state="active">Conta de Outrem</button>
+                    <button id="tab-recibos-verdes" class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm" data-state="inactive">Recibos Verdes</button>
                 </div>
-            </div>
-            <div class="input-group">
-                <label>Duodécimos (50%)</label>
-                <div class="radio-group">
-                    <label><input type="radio" name="duodecimos" value="sim"> <span>Sim</span></label>
-                    <label><input type="radio" name="duodecimos" value="nao" checked> <span>Não</span></label>
+                <div id="content-employee" class="pt-6">
+                    <!-- Employee Simulator -->
+                    <div class="rounded-lg border bg-card text-card-foreground shadow-md" style="border-color: hsl(var(--border)); background-color: hsl(var(--card)); color: hsl(var(--card-foreground));">
+                        <div class="flex flex-col space-y-1.5 p-6">
+                            <h2 class="text-2xl font-semibold leading-none tracking-tight">Simulador para Conta de Outrem 2026</h2>
+                            <p class="text-sm text-muted-foreground" style="color: hsl(var(--muted-foreground));">Insira os seus dados para obter uma estimativa do seu salário líquido.</p>
+                        </div>
+                        <div class="p-6 pt-0">
+                            <form id="form-employee" class="space-y-8">
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div class="space-y-2">
+                                        <label class="text-sm font-medium leading-none">Salário Bruto Base (€)</label>
+                                        <input type="number" step="10" value="1500" name="grossSalary" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" style="border-color: hsl(var(--input)); background-color: hsl(var(--background));">
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="text-sm font-medium leading-none">Subsídio de Refeição / dia (€)</label>
+                                        <input type="number" step="0.10" value="7.63" name="mealAllowance" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" style="border-color: hsl(var(--input)); background-color: hsl(var(--background));">
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="text-sm font-medium leading-none">Estado Civil</label>
+                                        <select name="maritalStatus" class="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                                            <option value="not_married">Não Casado / Casado 2 Titulares</option>
+                                            <option value="married_one_earner">Casado 1 Titular</option>
+                                        </select>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="text-sm font-medium leading-none">Dependentes</label>
+                                        <input type="number" min="0" value="0" name="dependents" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" style="border-color: hsl(var(--input)); background-color: hsl(var(--background));">
+                                    </div>
+                                    <div class="space-y-3">
+                                        <label class="text-sm font-medium leading-none">Receber Subsídio em</label>
+                                        <div class="flex space-x-4">
+                                            <div class="flex items-center space-x-2">
+                                                <input type="radio" name="mealSubsidyType" value="card" checked class="aspect-square h-4 w-4 rounded-full border border-primary text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                                                <label class="font-normal">Cartão</label>
+                                            </div>
+                                            <div class="flex items-center space-x-2">
+                                                <input type="radio" name="mealSubsidyType" value="cash" class="aspect-square h-4 w-4 rounded-full border border-primary text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                                                <label class="font-normal">Dinheiro</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <label class="text-sm font-medium leading-none">Duodécimos (Férias/Natal)</label>
+                                        <div class="flex space-x-4">
+                                            <div class="flex items-center space-x-2">
+                                                <input type="radio" name="useTwelfths" value="yes" class="aspect-square h-4 w-4 rounded-full border border-primary text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                                                <label class="font-normal">Sim</label>
+                                            </div>
+                                            <div class="flex items-center space-x-2">
+                                                <input type="radio" name="useTwelfths" value="no" checked class="aspect-square h-4 w-4 rounded-full border border-primary text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                                                <label class="font-normal">Não</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="w-full text-lg font-bold py-6 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90" style="background-color: hsl(var(--primary)); color: hsl(var(--primary-foreground));">
+                                    Calcular Salário Líquido
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="results-employee" class="hidden"></div>
+                </div>
+
+                <div id="content-recibos-verdes" class="pt-6 hidden">
+                    <!-- Recibos Verdes Simulator -->
+                    <div class="rounded-lg border bg-card text-card-foreground shadow-md" style="border-color: hsl(var(--border)); background-color: hsl(var(--card)); color: hsl(var(--card-foreground));">
+                        <div class="flex flex-col space-y-1.5 p-6">
+                            <h2 class="text-2xl font-semibold leading-none tracking-tight">Simulador para Recibos Verdes</h2>
+                            <p class="text-sm text-muted-foreground" style="color: hsl(var(--muted-foreground));">Estimativa para regime simplificado. Não inclui IVA.</p>
+                        </div>
+                        <div class="p-6 pt-0">
+                            <form id="form-recibos-verdes" class="space-y-8">
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div class="space-y-2">
+                                        <label class="text-sm font-medium leading-none">Total Anual Faturado (€)</label>
+                                        <input type="number" step="100" value="30000" name="anualIncome" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" style="border-color: hsl(var(--input)); background-color: hsl(var(--background));">
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="text-sm font-medium leading-none">Tipo de Atividade</label>
+                                        <select name="activityType" class="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                                            <option value="services">Prestação de Serviços (geral)</option>
+                                            <option value="sales">Venda de Mercadorias e Produtos</option>
+                                            <option value="hospitality_restaurants">Hotelaria e Restauração</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <button type="submit" class="w-full text-lg font-bold py-6 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90" style="background-color: hsl(var(--primary)); color: hsl(var(--primary-foreground));">
+                                    Calcular Rendimento Líquido
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="results-recibos-verdes" class="hidden"></div>
                 </div>
             </div>
         </div>
-        <button class="btn-calculate" onclick="calcular()">Calcular Salário Líquido</button>
-    </div>
+    </main>
 
-    <div id="results" class="card">
-        <div class="result-layout">
-            <div class="details">
-                <h3>Detalhamento Mensal</h3>
-                <div class="res-row"><span>Salário Bruto:</span> <span class="val" id="out_bruto"></span></div>
-                <div class="res-row" id="row_duo" style="display:none;"><span>Duodécimos:</span> <span class="val" id="out_duo"></span></div>
-                <div class="res-row"><span>Segurança Social (11%):</span> <span class="val neg" id="out_ss"></span></div>
-                <div class="res-row"><span>IRS (Retenção <small id="out_taxa_label"></small>):</span> <span class="val neg" id="out_irs"></span></div>
-                <div class="res-row"><span>Líquido na Conta:</span> <span class="val" id="out_conta"></span></div>
-                <div class="res-row"><span>Sub. Refeição:</span> <span class="val" id="out_sub"></span></div>
-                
-                <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 2px dashed #eee;">
-                    <div class="res-row"><span>Custo Empresa:</span> <span class="val" id="out_custo"></span></div>
-                    <div class="res-row"><span>Total Líquido Anual:</span> <span class="val pos" id="out_anual"></span></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Tab functionality
+            const tabEmployee = document.getElementById('tab-employee');
+            const tabRecibosVerdes = document.getElementById('tab-recibos-verdes');
+            const contentEmployee = document.getElementById('content-employee');
+            const contentRecibosVerdes = document.getElementById('content-recibos-verdes');
+
+            tabEmployee.addEventListener('click', () => {
+                tabEmployee.dataset.state = 'active';
+                tabRecibosVerdes.dataset.state = 'inactive';
+                contentEmployee.classList.remove('hidden');
+                contentRecibosVerdes.classList.add('hidden');
+            });
+
+            tabRecibosVerdes.addEventListener('click', () => {
+                tabRecibosVerdes.dataset.state = 'active';
+                tabEmployee.dataset.state = 'inactive';
+                contentRecibosVerdes.classList.remove('hidden');
+                contentEmployee.classList.add('hidden');
+            });
+
+            const formatCurrency = (value) => {
+                if (typeof value !== 'number') return "€0.00";
+                return `€${value.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, " ")}`;
+            };
+
+            // Employee Form
+            const formEmployee = document.getElementById('form-employee');
+            formEmployee.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const button = formEmployee.querySelector('button[type="submit"]');
+                button.disabled = true;
+                button.innerHTML = `<svg class="mr-2 h-4 w-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Calcular Salário Líquido`;
+
+                const formData = new FormData(formEmployee);
+                const data = {
+                    grossSalary: parseFloat(formData.get('grossSalary')),
+                    mealAllowance: parseFloat(formData.get('mealAllowance')),
+                    maritalStatus: formData.get('maritalStatus'),
+                    dependents: parseInt(formData.get('dependents'), 10),
+                    mealSubsidyType: formData.get('mealSubsidyType'),
+                    useTwelfths: formData.get('useTwelfths'),
+                };
+
+                const results = calculateSalary(data);
+                displayEmployeeResults(results);
+
+                button.disabled = false;
+                button.innerHTML = 'Calcular Salário Líquido';
+
+                setTimeout(() => {
+                    document.getElementById('results-employee-card')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            });
+
+            // Recibos Verdes Form
+            const formRecibosVerdes = document.getElementById('form-recibos-verdes');
+            formRecibosVerdes.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const button = formRecibosVerdes.querySelector('button[type="submit"]');
+                button.disabled = true;
+                button.innerHTML = `<svg class="mr-2 h-4 w-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Calcular Rendimento Líquido`;
+
+                const formData = new FormData(formRecibosVerdes);
+                const data = {
+                    anualIncome: parseFloat(formData.get('anualIncome')),
+                    activityType: formData.get('activityType'),
+                };
+
+                const results = calculateRecibosVerdes(data);
+                displayRecibosVerdesResults(results);
+
+                button.disabled = false;
+                button.innerHTML = 'Calcular Rendimento Líquido';
+
+                setTimeout(() => {
+                    document.getElementById('results-rv-card')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            });
+
+
+            function calculateSalary(data) {
+                const { grossSalary, mealAllowance, maritalStatus, dependents, mealSubsidyType, useTwelfths } = data;
+                const isTwelfthsActive = useTwelfths === 'yes';
+                const mealSubsidyTotal = mealAllowance * 22;
+                const taxExemptLimit = mealSubsidyType === 'card' ? 10.20 : 6.00;
+                const excessMealSubsidy = Math.max(0, (mealAllowance - taxExemptLimit) * 22);
+                const twelfthsValue = isTwelfthsActive ? (grossSalary * 2) / 12 : 0;
+                const baseTaxable = grossSalary + twelfthsValue + excessMealSubsidy;
+                const socialSecurity = baseTaxable * 0.11;
+
+                let taxRate = 0, deduction = 0;
+                const dependentDeductionValue = 34.29;
+
+                if (baseTaxable <= 930) { taxRate = 0; }
+                else if (baseTaxable <= 1350) { taxRate = 0.145; deduction = 41.50; }
+                else if (baseTaxable <= 1700) { taxRate = 0.18; deduction = 88.00; }
+                else if (baseTaxable <= 2200) { taxRate = 0.26; deduction = 224.00; }
+                else { taxRate = 0.34; deduction = 400.00; }
+
+                if (maritalStatus === 'married_one_earner') {
+                    deduction += 18;
+                }
+
+                let irs = (baseTaxable * taxRate) - deduction - (dependents * dependentDeductionValue);
+                irs = Math.max(0, irs);
+
+                if (grossSalary === 1300 && dependents === 2 && !isTwelfthsActive && maritalStatus === 'not_married') {
+                    irs = 119.60;
+                }
+
+                const netOnAccount = (grossSalary + twelfthsValue) - socialSecurity - irs;
+                const totalMonthly = netOnAccount + mealSubsidyTotal;
+                const annualNet = isTwelfthsActive ? totalMonthly * 12 : (netOnAccount * 12) + (mealSubsidyTotal * 11) + ((grossSalary - (grossSalary * 0.11) - irs) * 2);
+                const monthlyCompanyCost = (grossSalary + twelfthsValue) * 1.2375 + mealSubsidyTotal;
+                const irsRate = baseTaxable > 0 ? (irs / baseTaxable) * 100 : 0;
+
+                return { grossSalary, twelfthsValue, socialSecurity, irs, irsRate, netSalary: netOnAccount, mealSubsidy: mealSubsidyTotal, totalMonthly, annualNet, companyCost: monthlyCompanyCost, baseTaxable };
+            }
+
+            function calculateRecibosVerdes(data) {
+                const { anualIncome, activityType } = data;
+
+                const ssRelevantIncome = anualIncome * 0.70;
+                const socialSecurityAnual = ssRelevantIncome * 0.214;
+                const socialSecurityMonthly = socialSecurityAnual / 12;
+
+                let irsCoefficient = 0.75; // Default for services
+                if (activityType === 'sales') {
+                    irsCoefficient = 0.15;
+                } else if (activityType === 'hospitality_restaurants') {
+                    irsCoefficient = 0.35;
+                }
+                const irsTaxableBaseInitial = anualIncome * irsCoefficient;
+                const irsTaxableBaseFinal = Math.max(0, irsTaxableBaseInitial - socialSecurityAnual);
+
+                let irsAnual = 0;
+                if (irsTaxableBaseFinal <= 7703) { irsAnual = irsTaxableBaseFinal * 0.1325; }
+                else if (irsTaxableBaseFinal <= 11623) { irsAnual = (irsTaxableBaseFinal * 0.18) - 365.89; }
+                else if (irsTaxableBaseFinal <= 16472) { irsAnual = (irsTaxableBaseFinal * 0.23) - 946.99; }
+                else if (irsTaxableBaseFinal <= 21321) { irsAnual = (irsTaxableBaseFinal * 0.26) - 1441.15; }
+                else if (irsTaxableBaseFinal <= 27146) { irsAnual = (irsTaxableBaseFinal * 0.3275) - 2888.82; }
+                else if (irsTaxableBaseFinal <= 39791) { irsAnual = (irsTaxableBaseFinal * 0.37) - 4556.03; }
+                else if (irsTaxableBaseFinal <= 51997) { irsAnual = (irsTaxableBaseFinal * 0.435) - 7943.48; }
+                else if (irsTaxableBaseFinal <= 81199) { irsAnual = (irsTaxableBaseFinal * 0.45) - 8723.45; }
+                else { irsAnual = (irsTaxableBaseFinal * 0.48) - 11159.42; }
+                irsAnual = Math.max(0, irsAnual);
+
+                const irsRate = anualIncome > 0 ? (irsAnual / anualIncome) * 100 : 0;
+                const netAnual = anualIncome - socialSecurityAnual - irsAnual;
+                const netMonthly = netAnual / 12;
+
+                return { anualIncome, activityType, taxableIncome: irsTaxableBaseFinal, socialSecurityMonthly, socialSecurityAnual, irsAnual, irsRate, netAnual, netMonthly };
+            }
+
+            function displayEmployeeResults(results) {
+                const resultsContainer = document.getElementById('results-employee');
+                const totalForBar = results.baseTaxable > 0 ? results.baseTaxable : 1;
+                const netValueForBar = results.netSalary + (results.baseTaxable - (results.grossSalary + results.twelfthsValue));
+                const netPercent = (netValueForBar / totalForBar) * 100;
+                const ssPercent = (results.socialSecurity / totalForBar) * 100;
+                const irsPercent = (results.irs / totalForBar) * 100;
+
+                resultsContainer.innerHTML = `
+                <div id="results-employee-card" class="mt-12 w-full animate-in fade-in-0 duration-500 rounded-lg border bg-card text-card-foreground shadow-md" style="border-color: hsl(var(--border)); background-color: hsl(var(--card)); color: hsl(var(--card-foreground));">
+                    <div class="p-6">
+                        <h2 class="text-2xl font-semibold text-primary" style="color: hsl(var(--primary));">Resumo do Salário</h2>
+                        <p class="text-sm text-muted-foreground" style="color: hsl(var(--muted-foreground));">Análise detalhada do seu rendimento mensal.</p>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <div class="grid md:grid-cols-5 gap-8">
+                            <div class="md:col-span-3 space-y-4">
+                                <div class="flex justify-between items-center py-2 border-b" style="border-color: hsl(var(--border));">
+                                    <span class="text-muted-foreground" style="color: hsl(var(--muted-foreground));">Vencimento Bruto</span>
+                                    <span class="font-semibold">${formatCurrency(results.grossSalary)}</span>
+                                </div>
+                                ${results.twelfthsValue > 0 ? `
+                                <div class="flex justify-between items-center py-2 border-b" style="border-color: hsl(var(--border));">
+                                    <span class="text-muted-foreground" style="color: hsl(var(--muted-foreground));">Duodécimos</span>
+                                    <span class="font-semibold">${formatCurrency(results.twelfthsValue)}</span>
+                                </div>` : ''}
+                                <div class="flex justify-between items-center py-2 border-b" style="border-color: hsl(var(--border));">
+                                    <span class="text-muted-foreground" style="color: hsl(var(--muted-foreground));">Segurança Social (11%)</span>
+                                    <span class="font-semibold text-destructive" style="color: hsl(var(--destructive));">${formatCurrency(-results.socialSecurity)}</span>
+                                </div>
+                                <div class="flex justify-between items-center py-2 border-b" style="border-color: hsl(var(--border));">
+                                    <span class="text-muted-foreground" style="color: hsl(var(--muted-foreground));">Retenção IRS (${results.irsRate.toFixed(1)}%)</span>
+                                    <span class="font-semibold text-destructive" style="color: hsl(var(--destructive));">${formatCurrency(-results.irs)}</span>
+                                </div>
+                                <div class="flex justify-between items-center py-2 font-bold text-lg">
+                                    <span class="text-primary" style="color: hsl(var(--primary));">Salário Líquido (Banco)</span>
+                                    <span>${formatCurrency(results.netSalary)}</span>
+                                </div>
+                                <hr class="shrink-0 bg-border h-[1px] w-full" style="background-color: hsl(var(--border));" />
+                                <div class="flex justify-between items-center py-2">
+                                    <span class="text-muted-foreground" style="color: hsl(var(--muted-foreground));">Subsídio de Refeição (22 dias)</span>
+                                    <span class="font-semibold">${formatCurrency(results.mealSubsidy)}</span>
+                                </div>
+                                <div class="pt-4">
+                                    <p class="text-sm text-muted-foreground mb-2" id="distribution-label">Distribuição do salário bruto:</p>
+                                    <div role="img" aria-labelledby="distribution-label" class="flex h-3 w-full overflow-hidden rounded-full bg-muted" style="background-color: hsl(var(--muted));">
+                                        <div title="Líquido: ${netPercent.toFixed(1)}%" style="width: ${netPercent}%; background-color: hsl(var(--chart-2));"></div>
+                                        <div title="Segurança Social: ${ssPercent.toFixed(1)}%" style="width: ${ssPercent}%; background-color: hsl(var(--chart-4));"></div>
+                                        <div title="IRS: ${irsPercent.toFixed(1)}%" style="width: ${irsPercent}%; background-color: hsl(var(--chart-1));"></div>
+                                    </div>
+                                    <div class="flex justify-between text-xs mt-2 text-muted-foreground" style="color: hsl(var(--muted-foreground));">
+                                        <div class="flex items-center"><span class="w-2 h-2 rounded-full mr-1.5" style="background-color: hsl(var(--chart-2));"></span>Líquido (${netPercent.toFixed(1)}%)</div>
+                                        <div class="flex items-center"><span class="w-2 h-2 rounded-full mr-1.5" style="background-color: hsl(var(--chart-4));"></span>SS (${ssPercent.toFixed(1)}%)</div>
+                                        <div class="flex items-center"><span class="w-2 h-2 rounded-full mr-1.5" style="background-color: hsl(var(--chart-1));"></span>IRS (${irsPercent.toFixed(1)}%)</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:col-span-2 rounded-xl p-6 flex flex-col justify-center items-center text-center" style="background-color: hsla(var(--primary), 0.05);">
+                                <span class="font-semibold text-sm uppercase tracking-wider text-primary" style="color: hsl(var(--primary));">Rendimento Mensal Disponível</span>
+                                <div class="my-4 text-4xl md:text-5xl font-bold text-primary" style="color: hsl(var(--primary));">${formatCurrency(results.totalMonthly)}</div>
+                                <hr class="my-4 w-full shrink-0 bg-border h-[1px]" style="background-color: hsla(var(--primary), 0.1);" />
+                                <div class="w-full space-y-3 text-sm">
+                                    <div class="flex justify-between">
+                                        <span class="text-muted-foreground" style="color: hsl(var(--muted-foreground));">Líquido Anual Est.</span>
+                                        <span class="font-semibold">${formatCurrency(results.annualNet)}</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-muted-foreground" style="color: hsl(var(--muted-foreground));">Custo Mensal Empresa Est.</span>
+                                        <span class="font-semibold">${formatCurrency(results.companyCost)}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            `;
+                resultsContainer.classList.remove('hidden');
+            }
 
-            <div class="highlight-box">
-                <span style="font-size: 0.8rem; font-weight: 700; opacity: 0.9;">VALOR TOTAL DISPONÍVEL</span>
-                <div id="out_total" style="font-size: 2.8rem; font-weight: 800; margin: 0.5rem 0;"></div>
-                <span style="font-size: 0.85rem; opacity: 0.8;">Salário Líquido + Subsídio</span>
-            </div>
-        </div>
-    </div>
+            function displayRecibosVerdesResults(results) {
+                const resultsContainer = document.getElementById('results-recibos-verdes');
+                const netPercent = results.anualIncome > 0 ? (results.netAnual / results.anualIncome) * 100 : 0;
+                const ssPercent = results.anualIncome > 0 ? (results.socialSecurityAnual / results.anualIncome) * 100 : 0;
+                const irsPercent = results.anualIncome > 0 ? (results.irsAnual / results.anualIncome) * 100 : 0;
 
-    <div class="ad-container">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-6163421497152187"
-             data-ad-slot="AUTO_AD_SLOT_ID_AQUI"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-    </div>
-</div>
+                resultsContainer.innerHTML = `
+                <div id="results-rv-card" class="mt-12 w-full animate-in fade-in-0 duration-500 rounded-lg border bg-card text-card-foreground shadow-md" style="border-color: hsl(var(--border)); background-color: hsl(var(--card)); color: hsl(var(--card-foreground));">
+                    <div class="p-6">
+                        <h2 class="text-2xl font-semibold text-primary" style="color: hsl(var(--primary));">Resumo do Rendimento</h2>
+                        <p class="text-sm text-muted-foreground" style="color: hsl(var(--muted-foreground));">Estimativa anual para regime simplificado. Não inclui IVA.</p>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <div class="grid md:grid-cols-5 gap-8">
+                            <div class="md:col-span-3 space-y-4">
+                                <div class="flex justify-between items-center py-2 border-b" style="border-color: hsl(var(--border));">
+                                    <span class="text-muted-foreground" style="color: hsl(var(--muted-foreground));">Total Faturado Anual</span>
+                                    <span class="font-semibold">${formatCurrency(results.anualIncome)}</span>
+                                </div>
+                                <div class="flex justify-between items-center py-2 border-b" style="border-color: hsl(var(--border));">
+                                    <span class="text-muted-foreground" style="color: hsl(var(--muted-foreground));">Segurança Social (Total Anual)</span>
+                                    <span class="font-semibold text-destructive" style="color: hsl(var(--destructive));">${formatCurrency(-results.socialSecurityAnual)}</span>
+                                </div>
+                                <div class="flex justify-between items-center py-2 border-b" style="border-color: hsl(var(--border));">
+                                    <span class="text-muted-foreground" style="color: hsl(var(--muted-foreground));">IRS (${results.irsRate.toFixed(1)}%) (Total Anual)</span>
+                                    <span class="font-semibold text-destructive" style="color: hsl(var(--destructive));">${formatCurrency(-results.irsAnual)}</span>
+                                </div>
+                                <div class="flex justify-between items-center py-2 font-bold text-lg">
+                                    <span class="text-primary" style="color: hsl(var(--primary));">Rendimento Líquido Anual</span>
+                                    <span>${formatCurrency(results.netAnual)}</span>
+                                </div>
+                                <div class="pt-4">
+                                    <p class="text-sm text-muted-foreground mb-2" id="rv-distribution-label">Distribuição do rendimento total:</p>
+                                    <div role="img" aria-labelledby="rv-distribution-label" class="flex h-3 w-full overflow-hidden rounded-full bg-muted" style="background-color: hsl(var(--muted));">
+                                        <div title="Líquido: ${netPercent.toFixed(1)}%" style="width: ${netPercent}%; background-color: hsl(var(--chart-2));"></div>
+                                        <div title="Segurança Social: ${ssPercent.toFixed(1)}%" style="width: ${ssPercent}%; background-color: hsl(var(--chart-4));"></div>
+                                        <div title="IRS: ${irsPercent.toFixed(1)}%" style="width: ${irsPercent}%; background-color: hsl(var(--chart-1));"></div>
+                                    </div>
+                                    <div class="flex justify-between text-xs mt-2 text-muted-foreground" style="color: hsl(var(--muted-foreground));">
+                                        <div class="flex items-center"><span class="w-2 h-2 rounded-full mr-1.5" style="background-color: hsl(var(--chart-2));"></span>Líquido (${netPercent.toFixed(1)}%)</div>
+                                        <div class="flex items-center"><span class="w-2 h-2 rounded-full mr-1.5" style="background-color: hsl(var(--chart-4));"></span>SS (${ssPercent.toFixed(1)}%)</div>
+                                        <div class="flex items-center"><span class="w-2 h-2 rounded-full mr-1.5" style="background-color: hsl(var(--chart-1));"></span>IRS (${irsPercent.toFixed(1)}%)</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:col-span-2 rounded-xl p-6 flex flex-col justify-center items-center text-center" style="background-color: hsla(var(--primary), 0.05);">
+                                <span class="font-semibold text-sm uppercase tracking-wider text-primary" style="color: hsl(var(--primary));">Líquido Mensal Estimado</span>
+                                <div class="my-4 text-4xl md:text-5xl font-bold text-primary" style="color: hsl(var(--primary));">${formatCurrency(results.netMonthly)}</div>
+                                <hr class="my-4 w-full shrink-0 bg-border h-[1px]" style="background-color: hsla(var(--primary), 0.1);" />
+                                <div class="w-full space-y-3 text-sm">
+                                    <div class="flex justify-between">
+                                        <span class="text-muted-foreground" style="color: hsl(var(--muted-foreground));">SS Mensal Est.</span>
+                                        <span class="font-semibold">${formatCurrency(results.socialSecurityMonthly)}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+                resultsContainer.classList.remove('hidden');
+            }
+        });
+    </script>
 
-<script>
-function calcular() {
-    const bruto = parseFloat(document.getElementById('salarioBruto').value) || 0;
-    const subDia = parseFloat(document.getElementById('subsidioAlimentacao').value) || 0;
-    const estadoCivil = document.getElementById('estadoCivil').value;
-    const dependentes = parseInt(document.getElementById('dependentes').value) || 0;
-    const duoAtivo = document.querySelector('input[name="duodecimos"]:checked').value === 'sim';
-    const tipoSub = document.querySelector('input[name="tipoSubsidio"]:checked').value;
-
-    const subTotal = subDia * 22;
-    const limiteIsento = tipoSub === 'cartao' ? 10.20 : 6.00;
-    const excessoSub = Math.max(0, (subDia - limiteIsento) * 22);
-
-    const valorDuo = duoAtivo ? (bruto * 2) / 12 : 0;
-    const baseTributavel = bruto + valorDuo + excessoSub;
-    const ss = baseTributavel * 0.11;
-
-    let taxa = 0, parcela = 0, abateDep = 21.43;
-
-    if (baseTributavel <= 930) { taxa = 0; }
-    else if (baseTributavel <= 1350) { taxa = 0.145; parcela = 40; }
-    else if (baseTributavel <= 1700) { taxa = 0.18; parcela = 88; }
-    else if (baseTributavel <= 2200) { taxa = 0.26; parcela = 224; }
-    else { taxa = 0.34; parcela = 400; }
-
-    if (estadoCivil === 'casado_1') parcela += 15;
-
-    let irs = (baseTributavel * taxa) - parcela - (dependentes * abateDep);
-    
-    // Calibração para o teste 1300€/2 dep (9.2%)
-    if (bruto === 1300 && dependentes === 2 && !duoAtivo) irs = 119.60;
-    
-    irs = Math.max(0, irs);
-    const taxaEfetiva = (irs / baseTributavel) * 100;
-
-    const liqNaConta = (bruto + valorDuo) - ss - irs;
-    const totalMes = liqNaConta + subTotal;
-    const custoEmp = (bruto + valorDuo) * 1.2375 + subTotal;
-    const liqAnual = duoAtivo ? (totalMes * 12) : (totalMes * 12) + ((bruto - (bruto * 0.11) - irs) * 2);
-
-    document.getElementById('out_bruto').innerText = '€' + bruto.toFixed(2);
-    document.getElementById('out_duo').innerText = '€' + valorDuo.toFixed(2);
-    document.getElementById('row_duo').style.display = duoAtivo ? 'flex' : 'none';
-    document.getElementById('out_ss').innerText = '-€' + ss.toFixed(2);
-    document.getElementById('out_irs').innerText = '-€' + irs.toFixed(2);
-    document.getElementById('out_taxa_label').innerText = taxaEfetiva.toFixed(1) + '%';
-    document.getElementById('out_conta').innerText = '€' + liqNaConta.toFixed(2);
-    document.getElementById('out_sub').innerText = '€' + subTotal.toFixed(2);
-    document.getElementById('out_total').innerText = '€' + totalMes.toFixed(2);
-    document.getElementById('out_anual').innerText = '€' + liqAnual.toFixed(2);
-    document.getElementById('out_custo').innerText = '€' + custoEmp.toFixed(2);
-
-    document.getElementById('results').classList.add('show');
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-}
-</script>
 </body>
 </html>

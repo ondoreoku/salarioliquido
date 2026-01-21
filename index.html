@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Calculadora de Salário Líquido em Portugal 2025. Calcule quanto recebe após IRS e Segurança Social. Grátis e simples.">
+    <meta name="description" content="Calculadora de Salário Líquido em Portugal 2026. Calcule quanto recebe após IRS e Segurança Social. Grátis e simples.">
     <meta name="keywords" content="calculadora salário, salário líquido portugal, calcular IRS, salário bruto líquido">
     <meta name="author" content="André">
-    <title>Calculadora de Salário Líquido Portugal 2025 | Grátis</title>
+    <title>Calculadora de Salário Líquido Portugal 2026 | Grátis</title>
 
     <!-- Código global do AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6163421497152187"
@@ -280,7 +280,7 @@
 
         <div class="main-content">
             <div class="calculator-section">
-                <h1>💰 Calculadora de Salário Líquido Portugal 2025</h1>
+                <h1>💰 Calculadora de Salário Líquido Portugal 2026</h1>
                 <p class="subtitle">Descubra quanto vai receber após descontos de IRS e Segurança Social</p>
 
                 <div class="input-group">
@@ -332,9 +332,14 @@
                         <span class="result-value" id="irs" style="color: #e74c3c;">-€0.00</span>
                     </div>
 
+                    <div class="result-item">
+                        <span class="result-label">Salário Líquido Sem Subsídio</span>
+                        <span class="result-value" id="liquidoSemSubsidio">€0.00</span>
+                    </div>
+
                     <div class="result-final">
-                        <div style="font-size: 16px; opacity: 0.9;">💵 Salário Líquido Mensal</div>
-                        <div class="amount" id="liquido">€0.00</div>
+                        <div style="font-size: 16px; opacity: 0.9;">💵 Salário Líquido Mensal (com subsídio)</div>
+                        <div class="amount" id="liquidoComSubsidio">€0.00</div>
                         <div style="font-size: 14px; margin-top: 10px; opacity: 0.8;">Valor aproximado após todos os descontos</div>
                     </div>
                 </div>
@@ -378,11 +383,11 @@
                 <li><strong>IRS (Imposto sobre o Rendimento):</strong> Varia consoante o escalão de rendimento, estado civil e número de dependentes.</li>
             </ul>
 
-            <h2 style="margin-top: 25px;">Tabelas de IRS 2025</h2>
-            <p>As taxas de IRS em Portugal são progressivas e variam entre 13.25% e 48% dependendo do seu rendimento anual. Esta calculadora usa valores aproximados baseados nas tabelas oficiais.</p>
+            <h2 style="margin-top: 25px;">Tabelas de IRS 2026</h2>
+            <p>As taxas de IRS em Portugal são progressivas; o código usa uma aproximação baseada nos escalões e taxas de 2026 (não é um simulador oficial). [web:76][web:79]</p>
 
             <h2 style="margin-top: 25px;">Subsídio de Alimentação</h2>
-            <p>O subsídio de alimentação até 10.20€ por dia está isento de IRS e Segurança Social. Valores acima deste limite são tributados.</p>
+            <p>O subsídio de alimentação até ao limite isento continua sem descontos; acima desse valor pode ser tributado, mas aqui é tratado de forma simplificada. [web:82]</p>
         </div>
 
         <!-- Anúncio Rodapé -->
@@ -399,85 +404,11 @@
         </div>
 
         <footer>
-            <p>&copy; 2025 Calculadora Salário Líquido Portugal | Desenvolvido por André</p>
+            <p>&copy; 2026 Calculadora Salário Líquido Portugal | Desenvolvido por André</p>
             <p style="margin-top: 10px; font-size: 12px;">Aviso: Valores aproximados. Consulte um contabilista para cálculos exatos.</p>
         </footer>
     </div>
 
     <script>
         function calcular() {
-            const salarioBruto = parseFloat(document.getElementById('salarioBruto').value) || 0;
-            const subsidioAlimentacao = parseFloat(document.getElementById('subsidioAlimentacao').value) || 0;
-            const estadoCivil = document.getElementById('estadoCivil').value;
-            const dependentes = parseInt(document.getElementById('dependentes').value) || 0;
-
-            if (salarioBruto <= 0) {
-                alert('Por favor, insira um salário bruto válido.');
-                return;
-            }
-
-            // Cálculo Segurança Social (11%)
-            const ss = salarioBruto * 0.11;
-
-            // Subsídio de Alimentação (22 dias úteis)
-            const subsidioMensal = subsidioAlimentacao * 22;
-
-            // Cálculo IRS simplificado (aproximado)
-            const salarioAnual = salarioBruto * 14; // Incluindo subsídios
-            let taxaIRS = 0;
-
-            // Taxas simplificadas baseadas em escalões
-            if (salarioAnual <= 7703) {
-                taxaIRS = 0.1325;
-            } else if (salarioAnual <= 11623) {
-                taxaIRS = 0.18;
-            } else if (salarioAnual <= 16472) {
-                taxaIRS = 0.23;
-            } else if (salarioAnual <= 21321) {
-                taxaIRS = 0.26;
-            } else if (salarioAnual <= 27146) {
-                taxaIRS = 0.3275;
-            } else if (salarioAnual <= 39791) {
-                taxaIRS = 0.37;
-            } else if (salarioAnual <= 51997) {
-                taxaIRS = 0.435;
-            } else if (salarioAnual <= 81199) {
-                taxaIRS = 0.45;
-            } else {
-                taxaIRS = 0.48;
-            }
-
-            // Ajuste por estado civil e dependentes (simplificado)
-            if (estadoCivil === 'casado_dois') {
-                taxaIRS *= 0.9;
-            }
-
-            taxaIRS -= (dependentes * 0.01); // Redução por dependente
-
-            const irs = salarioBruto * taxaIRS;
-
-            // Salário Líquido
-            const salarioLiquido = salarioBruto - ss - irs + subsidioMensal;
-
-            // Mostrar resultados
-            document.getElementById('brutomensal').textContent = '€' + salarioBruto.toFixed(2);
-            document.getElementById('subsidiototal').textContent = '€' + subsidioMensal.toFixed(2);
-            document.getElementById('ss').textContent = '-€' + ss.toFixed(2);
-            document.getElementById('irs').textContent = '-€' + irs.toFixed(2);
-            document.getElementById('liquido').textContent = '€' + salarioLiquido.toFixed(2);
-
-            document.getElementById('results').classList.add('show');
-
-            // Scroll suave para resultados
-            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-
-        // Permitir calcular com Enter
-        document.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                calcular();
-            }
-        });
-    </script>
-</body>
-</html>
+            const salarioBruto = parseF

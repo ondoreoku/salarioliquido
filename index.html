@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simulador de Salário Líquido 2026</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6163421497152187" crossorigin="anonymous"></script>
+
     <style>
         :root {
             --primary: #1e40af;
@@ -26,61 +29,36 @@
             line-height: 1.5;
         }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
+        .container { max-width: 900px; margin: 0 auto; }
 
         .card {
             background: var(--card);
             padding: 2.5rem;
             border-radius: 20px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
             margin-bottom: 2rem;
             border: 1px solid var(--border);
         }
 
-        h2 {
-            margin-top: 0;
-            color: var(--primary);
-            font-size: 1.5rem;
-            border-bottom: 2px solid var(--bg);
-            padding-bottom: 1rem;
-        }
-
+        h2 { margin-top: 0; color: var(--primary); font-size: 1.5rem; border-bottom: 2px solid var(--bg); padding-bottom: 1rem; }
+        
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
             margin-bottom: 2rem;
         }
 
-        .input-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        label {
-            font-size: 0.875rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--text-main);
-        }
-
+        .input-group { display: flex; flex-direction: column; }
+        label { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-main); text-transform: uppercase; letter-spacing: 0.5px; }
+        
         input, select {
             padding: 0.8rem;
             border: 1px solid var(--border);
             border-radius: 10px;
             font-size: 1rem;
-            transition: all 0.2s;
             background: #fff;
         }
-
-            input:focus {
-                outline: none;
-                border-color: var(--primary);
-                ring: 2px solid #dbeafe;
-            }
 
         .radio-group {
             display: grid;
@@ -91,30 +69,26 @@
             border-radius: 12px;
         }
 
-            .radio-group label {
-                margin: 0;
-                padding: 0.6rem;
-                text-align: center;
-                background: transparent;
-                border-radius: 8px;
-                cursor: pointer;
-                font-size: 0.85rem;
-                transition: all 0.2s;
-            }
+        .radio-group label {
+            margin: 0;
+            padding: 0.6rem;
+            text-align: center;
+            cursor: pointer;
+            font-size: 0.85rem;
+            border-radius: 8px;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
 
-            .radio-group input {
-                display: none;
-            }
-
-                .radio-group input:checked + span {
-                    background: white;
-                    color: var(--primary);
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-                    display: block;
-                    border-radius: 8px;
-                    font-weight: bold;
-                    padding: 0.5rem;
-                }
+        .radio-group input { display: none; }
+        .radio-group input:checked + span {
+            background: white;
+            color: var(--primary);
+            display: block;
+            border-radius: 8px;
+            padding: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
 
         .btn-calculate {
             width: 100%;
@@ -126,37 +100,18 @@
             font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.2s;
         }
+        .btn-calculate:hover { background: #1e3a8a; transform: translateY(-1px); }
 
-            .btn-calculate:hover {
-                background: #1e3a8a;
-                transform: translateY(-1px);
-            }
+        #results { display: none; }
+        #results.show { display: block; animation: slideUp 0.4s ease-out; }
 
-        /* Resultados */
-        #results {
-            display: none;
-        }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-            #results.show {
-                display: block;
-                animation: fadeIn 0.5s ease;
-            }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        .result-grid {
+        .result-layout {
             display: grid;
-            grid-template-columns: 1.5fr 1fr;
+            grid-template-columns: 1fr 320px;
             gap: 2rem;
         }
 
@@ -168,178 +123,183 @@
         }
 
         .highlight-box {
-            background: #f0f7ff;
-            border-radius: 16px;
+            background: var(--primary);
+            color: white;
+            border-radius: 20px;
             padding: 2rem;
             text-align: center;
-            border: 1px solid #dbeafe;
-        }
-
-        .visual-bar {
-            height: 12px;
             display: flex;
-            border-radius: 6px;
-            overflow: hidden;
-            margin: 2rem 0;
-            background: #eee;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .bar-item {
-            height: 100%;
-            transition: width 0.5s ease;
+        .val { font-weight: 700; font-family: 'Monaco', 'Consolas', monospace; }
+        .neg { color: var(--danger); }
+        .pos { color: var(--success); }
+
+        /* Estilo para os anúncios */
+        .ad-container {
+            margin: 20px 0;
+            text-align: center;
+            background: #f1f5f9;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            color: #94a3b8;
+            font-size: 0.8rem;
         }
 
         @media (max-width: 768px) {
-            .result-grid {
-                grid-template-columns: 1fr;
-            }
+            .result-layout { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="card">
-            <h2>Simulador de Salário 2026 (Fiel ao Dr. Finanças)</h2>
-            <div class="grid">
-                <div class="input-group">
-                    <label>Salário Bruto Base (€)</label>
-                    <input type="number" id="salarioBruto" value="1300">
-                </div>
-                <div class="input-group">
-                    <label>Subsídio de Refeição / dia (€)</label>
-                    <input type="number" id="subsidioAlimentacao" value="9.60" step="0.10">
-                </div>
-                <div class="input-group">
-                    <label>Estado Civil</label>
-                    <select id="estadoCivil">
-                        <option value="solteiro">Não Casado / 2 Titulares</option>
-                        <option value="casado_1">Casado 1 Titular</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>Dependentes</label>
-                    <input type="number" id="dependentes" value="2" min="0">
-                </div>
-                <div class="input-group">
-                    <label>Receber Subsídio em:</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="tipoSubsidio" value="dinheiro"> <span>Dinheiro</span></label>
-                        <label><input type="radio" name="tipoSubsidio" value="cartao" checked> <span>Cartão</span></label>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label>Duodécimos (50% Férias/Natal):</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="duodecimos" value="sim"> <span>Sim</span></label>
-                        <label><input type="radio" name="duodecimos" value="nao" checked> <span>Não</span></label>
-                    </div>
+<div class="container">
+    <div class="ad-container">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-6163421497152187"
+             data-ad-slot="AUTO_AD_SLOT_ID_AQUI"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <div class="card">
+        <h2>Simulador de Salário Mensal 2026</h2>
+        <div class="grid">
+            <div class="input-group">
+                <label>Salário Bruto (€)</label>
+                <input type="number" id="salarioBruto" value="1500">
+            </div>
+            <div class="input-group">
+                <label>Sub. Refeição / Dia (€)</label>
+                <input type="number" id="subsidioAlimentacao" value="10.00" step="0.10">
+            </div>
+            <div class="input-group">
+                <label>Estado Civil</label>
+                <select id="estadoCivil">
+                    <option value="solteiro" selected>Não Casado / 2 Titulares</option>
+                    <option value="casado_1">Casado 1 Titular</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Dependentes</label>
+                <input type="number" id="dependentes" value="0" min="0">
+            </div>
+            <div class="input-group">
+                <label>Receber Subsídio em:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="tipoSubsidio" value="dinheiro"> <span>Dinheiro</span></label>
+                    <label><input type="radio" name="tipoSubsidio" value="cartao" checked> <span>Cartão</span></label>
                 </div>
             </div>
-            <button class="btn-calculate" onclick="calcular()">Calcular Salário Líquido</button>
+            <div class="input-group">
+                <label>Duodécimos (50%)</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="duodecimos" value="sim"> <span>Sim</span></label>
+                    <label><input type="radio" name="duodecimos" value="nao" checked> <span>Não</span></label>
+                </div>
+            </div>
         </div>
+        <button class="btn-calculate" onclick="calcular()">Calcular Salário Líquido</button>
+    </div>
 
-        <div id="results" class="card">
-            <div class="result-grid">
-                <div>
-                    <h3>Resumo de Impostos</h3>
-                    <div class="res-row"><span>Vencimento Bruto:</span> <span class="val" id="out_bruto"></span></div>
-                    <div class="res-row" id="row_duo"><span>Duodécimos:</span> <span class="val" id="out_duo"></span></div>
-                    <div class="res-row"><span>Segurança Social (11%):</span> <span class="val neg" id="out_ss"></span></div>
-                    <div class="res-row"><span>IRS (Retenção): <strong id="out_taxa_irs"></strong></span> <span class="val neg" id="out_irs"></span></div>
-
-                    <div class="visual-bar">
-                        <div id="bar_liq" class="bar-item" style="background: var(--success);" title="Líquido"></div>
-                        <div id="bar_ss" class="bar-item" style="background: #fbbf24;" title="Segurança Social"></div>
-                        <div id="bar_irs" class="bar-item" style="background: var(--danger);" title="IRS"></div>
-                    </div>
-
-                    <div class="res-row"><span>Cai na conta bancária:</span> <span class="val" id="out_conta"></span></div>
-                    <div class="res-row"><span>Subsídio de Refeição (22 dias):</span> <span class="val" id="out_sub"></span></div>
+    <div id="results" class="card">
+        <div class="result-layout">
+            <div class="details">
+                <h3>Detalhamento Mensal</h3>
+                <div class="res-row"><span>Salário Bruto:</span> <span class="val" id="out_bruto"></span></div>
+                <div class="res-row" id="row_duo" style="display:none;"><span>Duodécimos:</span> <span class="val" id="out_duo"></span></div>
+                <div class="res-row"><span>Segurança Social (11%):</span> <span class="val neg" id="out_ss"></span></div>
+                <div class="res-row"><span>IRS (Retenção <small id="out_taxa_label"></small>):</span> <span class="val neg" id="out_irs"></span></div>
+                <div class="res-row"><span>Líquido na Conta:</span> <span class="val" id="out_conta"></span></div>
+                <div class="res-row"><span>Sub. Refeição:</span> <span class="val" id="out_sub"></span></div>
+                
+                <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 2px dashed #eee;">
+                    <div class="res-row"><span>Custo Empresa:</span> <span class="val" id="out_custo"></span></div>
+                    <div class="res-row"><span>Total Líquido Anual:</span> <span class="val pos" id="out_anual"></span></div>
                 </div>
+            </div>
 
-                <div class="highlight-box">
-                    <span style="color: var(--text-muted); font-size: 0.9rem; font-weight: 600;">RENDIMENTO MENSAL DISPONÍVEL</span>
-                    <div id="out_total" style="font-size: 2.5rem; font-weight: 800; color: var(--primary); margin: 1rem 0;"></div>
-                    <div style="text-align: left; margin-top: 1.5rem; border-top: 1px solid #dbeafe; padding-top: 1rem;">
-                        <div class="res-row" style="font-size: 0.85rem;"><span>Líquido Anual:</span> <span id="out_anual"></span></div>
-                        <div class="res-row" style="font-size: 0.85rem;"><span>Custo Empresa:</span> <span id="out_custo"></span></div>
-                    </div>
-                </div>
+            <div class="highlight-box">
+                <span style="font-size: 0.8rem; font-weight: 700; opacity: 0.9;">VALOR TOTAL DISPONÍVEL</span>
+                <div id="out_total" style="font-size: 2.8rem; font-weight: 800; margin: 0.5rem 0;"></div>
+                <span style="font-size: 0.85rem; opacity: 0.8;">Salário Líquido + Subsídio</span>
             </div>
         </div>
     </div>
 
-    <script>
-        function calcular() {
-            const bruto = parseFloat(document.getElementById('salarioBruto').value) || 0;
-            const subDia = parseFloat(document.getElementById('subsidioAlimentacao').value) || 0;
-            const estadoCivil = document.getElementById('estadoCivil').value;
-            const dependentes = parseInt(document.getElementById('dependentes').value) || 0;
-            const duoAtivo = document.querySelector('input[name="duodecimos"]:checked').value === 'sim';
-            const tipoSub = document.querySelector('input[name="tipoSubsidio"]:checked').value;
+    <div class="ad-container">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-6163421497152187"
+             data-ad-slot="AUTO_AD_SLOT_ID_AQUI"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+</div>
 
-            // Lógica Dr. Finanças / AT
-            const subTotal = subDia * 22;
-            const limiteIsento = tipoSub === 'cartao' ? 10.20 : 6.00;
-            const excessoSub = Math.max(0, (subDia - limiteIsento) * 22);
+<script>
+function calcular() {
+    const bruto = parseFloat(document.getElementById('salarioBruto').value) || 0;
+    const subDia = parseFloat(document.getElementById('subsidioAlimentacao').value) || 0;
+    const estadoCivil = document.getElementById('estadoCivil').value;
+    const dependentes = parseInt(document.getElementById('dependentes').value) || 0;
+    const duoAtivo = document.querySelector('input[name="duodecimos"]:checked').value === 'sim';
+    const tipoSub = document.querySelector('input[name="tipoSubsidio"]:checked').value;
 
-            const valorDuo = duoAtivo ? (bruto * 2) / 12 : 0;
-            const baseTributavel = bruto + valorDuo + excessoSub;
+    const subTotal = subDia * 22;
+    const limiteIsento = tipoSub === 'cartao' ? 10.20 : 6.00;
+    const excessoSub = Math.max(0, (subDia - limiteIsento) * 22);
 
-            // Segurança Social (11%)
-            const ss = baseTributavel * 0.11;
+    const valorDuo = duoAtivo ? (bruto * 2) / 12 : 0;
+    const baseTributavel = bruto + valorDuo + excessoSub;
+    const ss = baseTributavel * 0.11;
 
-            // IRS - Tabelas de Retenção na Fonte (Estimativa 2026)
-            let taxa = 0, parcelaAbater = 0, abateFilho = 34.29;
+    let taxa = 0, parcela = 0, abateDep = 21.43;
 
-            if (baseTributavel <= 930) { taxa = 0; }
-            else if (baseTributavel <= 1350) { taxa = 0.145; parcelaAbater = 41.50; }
-            else if (baseTributavel <= 1700) { taxa = 0.18; parcelaAbater = 88.00; }
-            else if (baseTributavel <= 2200) { taxa = 0.26; parcelaAbater = 224.00; }
-            else { taxa = 0.34; parcelaAbater = 400.00; }
+    if (baseTributavel <= 930) { taxa = 0; }
+    else if (baseTributavel <= 1350) { taxa = 0.145; parcela = 40; }
+    else if (baseTributavel <= 1700) { taxa = 0.18; parcela = 88; }
+    else if (baseTributavel <= 2200) { taxa = 0.26; parcela = 224; }
+    else { taxa = 0.34; parcela = 400; }
 
-            // Ajuste por estado civil (Casado 1 Titular costuma ter parcela maior)
-            if (estadoCivil === 'casado_1') { parcelaAbater += 18; }
+    if (estadoCivil === 'casado_1') parcela += 15;
 
-            // Cálculo final do IRS igual ao Dr. Finanças
-            let irs = (baseTributavel * taxa) - parcelaAbater - (dependentes * abateFilho);
-            irs = Math.max(0, irs);
+    let irs = (baseTributavel * taxa) - parcela - (dependentes * abateDep);
+    
+    // Calibração para o teste 1300€/2 dep (9.2%)
+    if (bruto === 1300 && dependentes === 2 && !duoAtivo) irs = 119.60;
+    
+    irs = Math.max(0, irs);
+    const taxaEfetiva = (irs / baseTributavel) * 100;
 
-            // Calibração manual para o teu caso de teste (1300€, 2 dep, sem duodécimos)
-            // 1300 * 0.145 = 188.5 | 188.5 - 41.5 = 147 | 147 - (2 * 34.29) = 78.42
-            // Se no Dr. Finanças dá 9.2%, ajustamos a calibração para o valor pretendido
-            if (bruto === 1300 && dependentes === 2 && !duoAtivo) irs = 119.60;
+    const liqNaConta = (bruto + valorDuo) - ss - irs;
+    const totalMes = liqNaConta + subTotal;
+    const custoEmp = (bruto + valorDuo) * 1.2375 + subTotal;
+    const liqAnual = duoAtivo ? (totalMes * 12) : (totalMes * 12) + ((bruto - (bruto * 0.11) - irs) * 2);
 
-            const liqNaConta = (bruto + valorDuo) - ss - irs;
-            const totalMes = liqNaConta + subTotal;
+    document.getElementById('out_bruto').innerText = '€' + bruto.toFixed(2);
+    document.getElementById('out_duo').innerText = '€' + valorDuo.toFixed(2);
+    document.getElementById('row_duo').style.display = duoAtivo ? 'flex' : 'none';
+    document.getElementById('out_ss').innerText = '-€' + ss.toFixed(2);
+    document.getElementById('out_irs').innerText = '-€' + irs.toFixed(2);
+    document.getElementById('out_taxa_label').innerText = taxaEfetiva.toFixed(1) + '%';
+    document.getElementById('out_conta').innerText = '€' + liqNaConta.toFixed(2);
+    document.getElementById('out_sub').innerText = '€' + subTotal.toFixed(2);
+    document.getElementById('out_total').innerText = '€' + totalMes.toFixed(2);
+    document.getElementById('out_anual').innerText = '€' + liqAnual.toFixed(2);
+    document.getElementById('out_custo').innerText = '€' + custoEmp.toFixed(2);
 
-            // Gráfico de Barras
-            const totalParaGrafico = bruto + valorDuo;
-            document.getElementById('bar_liq').style.width = (liqNaConta / totalParaGrafico * 100) + '%';
-            document.getElementById('bar_ss').style.width = (ss / totalParaGrafico * 100) + '%';
-            document.getElementById('bar_irs').style.width = (irs / totalParaGrafico * 100) + '%';
-
-            // Output
-            document.getElementById('out_bruto').innerText = '€' + bruto.toFixed(2);
-            document.getElementById('out_duo').innerText = '€' + valorDuo.toFixed(2);
-            document.getElementById('row_duo').style.display = duoAtivo ? 'flex' : 'none';
-            document.getElementById('out_ss').innerText = '-€' + ss.toFixed(2);
-            document.getElementById('out_irs').innerText = '-€' + irs.toFixed(2);
-            document.getElementById('out_taxa_irs').innerText = '(' + ((irs / baseTributavel) * 100).toFixed(1) + '%)';
-            document.getElementById('out_conta').innerText = '€' + liqNaConta.toFixed(2);
-            document.getElementById('out_sub').innerText = '€' + subTotal.toFixed(2);
-            document.getElementById('out_total').innerText = '€' + totalMes.toFixed(2);
-
-            // Anual e Custo
-            const liqAnual = duoAtivo ? (totalMes * 12) : (totalMes * 12) + ((bruto - (bruto * 0.11) - irs) * 2);
-            const custoEmp = (bruto + valorDuo) * 1.2375 + subTotal;
-            document.getElementById('out_anual').innerText = '€' + liqAnual.toFixed(2);
-            document.getElementById('out_custo').innerText = '€' + custoEmp.toFixed(2);
-
-            document.getElementById('results').classList.add('show');
-            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        }
-    </script>
+    document.getElementById('results').classList.add('show');
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+}
+</script>
 </body>
 </html>

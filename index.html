@@ -3,235 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador de Salário Líquido 2026</title>
+    <title>Simulador de Salário Líquido e Custo Empresa 2026</title>
 
-    <meta name="description" content="Calcule o seu salário líquido em Portugal para 2026. Simulador atualizado para trabalhadores por conta de outrem e recibos verdes.">
-
+    <meta name="description" content="Simulador completo de salário líquido em Portugal para 2026. Calcule o custo total para a empresa e rendimento líquido com recibos verdes.">
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2489/2489756.png">
-
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6163421497152187" crossorigin="anonymous"></script>
-
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        :root {
-            --primary: #2563eb; /* Azul Financeiro */
-            --secondary: #10b981; /* Verde Sucesso */
-            --dark: #0f172a;
-            --light-bg: #f1f5f9;
-            --white: #ffffff;
-        }
+        :root { --primary: #2563eb; --secondary: #10b981; --dark: #0f172a; --bg: #f1f5f9; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--dark); padding: 20px; margin: 0; }
+        .main-card { max-width: 850px; margin: 0 auto; background: white; border-radius: 24px; padding: 40px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        h1 { text-align: center; font-weight: 800; font-size: 1.5rem; margin-bottom: 30px; }
+        
+        .regime-nav { display: flex; background: var(--bg); padding: 6px; border-radius: 14px; margin-bottom: 30px; }
+        .regime-option { flex: 1; padding: 12px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; color: #64748b; background: transparent; }
+        .regime-option.active { background: white; color: var(--primary); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--light-bg);
-            color: var(--dark);
-            margin: 0;
-            padding: 20px;
-        }
-
-        .main-card {
-            max-width: 800px;
-            margin: 0 auto;
-            background: var(--white);
-            border-radius: 24px;
-            padding: 40px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-        }
-
-        .header-icon {
-            width: 60px;
-            height: 60px;
-            background: #dcfce7;
-            color: var(--secondary);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            margin: 0 auto 20px;
-        }
-
-        h1 {
-            text-align: center;
-            font-weight: 800;
-            font-size: 1.6rem;
-            color: var(--dark);
-            margin-bottom: 30px;
-        }
-
-        /* Selector de Regime Estilo "Pill" */
-        .regime-nav {
-            display: flex;
-            background: var(--light-bg);
-            padding: 6px;
-            border-radius: 14px;
-            margin-bottom: 30px;
-        }
-
-        .regime-option {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 10px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
-            color: #64748b;
-            background: transparent;
-        }
-
-        .regime-option.active {
-            background: var(--white);
-            color: var(--primary);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Form Layout */
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .input-box {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        label {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: #475569;
-        }
-
-        input, select {
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 14px;
-            font-size: 1rem;
-            font-family: inherit;
-            transition: 0.2s;
-        }
-
-        input:focus {
-            border-color: var(--primary);
-            outline: none;
-            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
-        }
-
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .input-box { display: flex; flex-direction: column; gap: 8px; }
+        label { font-size: 0.85rem; font-weight: 700; color: #475569; }
+        input, select { border: 2px solid #e2e8f0; border-radius: 12px; padding: 14px; font-size: 1rem; width: 100%; box-sizing: border-box; }
         .full-width { grid-column: span 2; }
 
-        .btn-calc {
-            width: 100%;
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 18px;
-            border-radius: 14px;
-            font-weight: 800;
-            font-size: 1.1rem;
-            cursor: pointer;
-            margin-top: 25px;
-            transition: 0.2s;
-        }
+        .btn-calc { width: 100%; background: var(--primary); color: white; border: none; padding: 18px; border-radius: 14px; font-weight: 800; font-size: 1.1rem; cursor: pointer; margin-top: 25px; }
 
-        .btn-calc:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
-        }
-
-        /* Resultados Estilo Moderno */
-        #result-area {
-            display: none;
-            margin-top: 40px;
-            padding-top: 30px;
-            border-top: 2px solid #f1f5f9;
-        }
-
-        .summary-card {
-            background: #0f172a;
-            color: white;
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .liquid-value {
-            font-size: 2.8rem;
-            font-weight: 800;
-            color: var(--secondary);
-            margin: 10px 0;
-        }
-
-        .data-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #f1f5f9;
-            font-size: 0.95rem;
-        }
-
-        .ad-banner {
-            background: #f8fafc;
-            border: 1px dashed #cbd5e1;
-            margin: 25px 0;
-            min-height: 90px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #94a3b8;
-            font-size: 0.7rem;
-            border-radius: 12px;
-        }
-
-        @media (max-width: 600px) {
-            .form-grid { grid-template-columns: 1fr; }
-            .full-width { grid-column: span 1; }
-        }
+        #result-area { display: none; margin-top: 40px; }
+        .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
+        .card-res { padding: 20px; border-radius: 16px; text-align: center; }
+        .bg-dark { background: var(--dark); color: white; }
+        .bg-blue { background: #dbeafe; color: var(--primary); }
+        .val { font-size: 1.8rem; font-weight: 800; display: block; margin-top: 5px; }
+        
+        .data-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+        .ad-banner { background: #f8fafc; border: 1px dashed #cbd5e1; margin: 20px 0; min-height: 90px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: #94a3b8; }
+        @media (max-width: 600px) { .form-grid, .summary-grid { grid-template-columns: 1fr; } .full-width { grid-column: span 1; } }
     </style>
 </head>
 <body>
 
 <div class="main-card">
-    <div class="header-icon">
-        <i class="fas fa-wallet"></i>
-    </div>
-    <h1>Simulador Salário Líquido</h1>
+    <h1>Simulador Salário Líquido 2026</h1>
 
     <div class="regime-nav">
-        <button id="btn-tco" class="regime-option active" onclick="changeRegime('tco')">Trabalhador Ativo</button>
+        <button id="btn-tco" class="regime-option active" onclick="changeRegime('tco')">Conta de Outrem</button>
         <button id="btn-eni" class="regime-option" onclick="changeRegime('eni')">Recibos Verdes</button>
     </div>
 
-    <div class="ad-banner">ANÚNCIO GOOGLE</div>
+    <div class="form-grid" id="fields-container"></div>
 
-    <div class="form-grid" id="fields-container">
-        </div>
-
-    <button class="btn-calc" onclick="processar()">
-        Calcular Agora <i class="fas fa-arrow-right"></i>
-    </button>
+    <button class="btn-calc" onclick="processar()">Calcular Rendimento Líquido</button>
 
     <div id="result-area">
-        <div class="summary-card">
-            <span style="opacity: 0.7; font-size: 0.9rem; font-weight: 600;">VALOR LÍQUIDO MENSAL</span>
-            <div id="val-final" class="liquid-value">0,00 €</div>
-            <div id="label-extra" style="font-size: 0.8rem; opacity: 0.6;"></div>
+        <div class="summary-grid">
+            <div class="card-res bg-dark">
+                <span style="font-size: 0.75rem; opacity: 0.8;">LÍQUIDO (C/ SUBSÍDIO)</span>
+                <span id="res-total" class="val" style="color: var(--secondary);">0,00 €</span>
+            </div>
+            <div class="card-res bg-blue">
+                <span style="font-size: 0.75rem;">CUSTO PARA EMPRESA</span>
+                <span id="res-custo" class="val">0,00 €</span>
+            </div>
         </div>
 
-        <div style="margin-top: 25px;" id="breakdown">
-            </div>
-
-        <div class="ad-banner">ANÚNCIO GOOGLE</div>
+        <div id="breakdown"></div>
+        <div class="ad-banner">ESPAÇO PUBLICITÁRIO</div>
     </div>
 </div>
 
 <script>
     let regime = 'tco';
+    const fmt = (v) => v.toLocaleString('pt-PT', { style: 'currency', currency: 'EUR' });
 
     function changeRegime(type) {
         regime = type;
@@ -245,64 +88,73 @@
         const container = document.getElementById('fields-container');
         if(regime === 'tco') {
             container.innerHTML = `
-                <div class="input-box full-width"><label>Vencimento Base (€)</label><input type="number" id="base" value="1500"></div>
-                <div class="input-box"><label>Subsídio Refeição/Dia</label><input type="number" id="sub" value="9.60"></div>
+                <div class="input-box full-width"><label>Salário Bruto Mensal (€)</label><input type="number" id="base" value="1500"></div>
+                <div class="input-box"><label>Subsídio Refeição/Dia (€)</label><input type="number" id="sub" value="9.60"></div>
                 <div class="input-box"><label>Dependentes</label><input type="number" id="dep" value="0"></div>
+                <div class="input-box full-width"><label>Subsídio em Cartão?</label>
+                <select id="sub_tipo"><option value="cartao">Sim (Isento até 9,60€)</option><option value="dinheiro">Não, em Dinheiro (Isento até 6,00€)</option></select></div>
             `;
         } else {
             container.innerHTML = `
-                <div class="input-box full-width"><label>Tipo de Atividade</label>
+                <div class="input-box full-width"><label>Coeficiente CIRS (Art. 31º)</label>
                 <select id="coef">
-                    <option value="0.75">Profissões Liberais (75%)</option>
-                    <option value="0.35">Outros Serviços (35%)</option>
-                    <option value="0.15">Vendas e Mercadorias (15%)</option>
+                    <option value="0.75">75% - Profissões Liberais</option>
+                    <option value="0.35">35% - Outras Prestações Serviços</option>
+                    <option value="0.15">15% - Vendas Mercadorias</option>
+                    <option value="0.10">10% - Alojamento Local</option>
                 </select></div>
                 <div class="input-box"><label>Faturação Bruta (€)</label><input type="number" id="base" value="2500"></div>
-                <div class="input-box"><label>Retenção IRS</label><select id="irs"><option value="0.25">25%</option><option value="0.10">10%</option><option value="0">Isento</option></select></div>
+                <div class="input-box"><label>Retenção IRS</label><select id="irs_rate"><option value="0.25">25%</option><option value="0.10">10%</option><option value="0">Isento</option></select></div>
             `;
         }
     }
 
     function processar() {
-        const valorBase = parseFloat(document.getElementById('base').value) || 0;
-        const fmt = (v) => v.toLocaleString('pt-PT', { style: 'currency', currency: 'EUR' });
-        let liq = 0;
-        let detailsHtml = "";
+        const base = parseFloat(document.getElementById('base').value) || 0;
+        let details = "";
 
         if(regime === 'tco') {
-            const ss = valorBase * 0.11;
-            const irs = valorBase > 950 ? (valorBase * 0.12) : 0;
-            const sRef = (parseFloat(document.getElementById('sub').value) || 0) * 22;
-            liq = valorBase - ss - irs + sRef;
+            const ssTrabalhador = base * 0.11;
+            const tsuEmpresa = base * 0.2375;
+            const irs = base > 930 ? (base * 0.12) : 0; // Simplificação
+            const sRefDia = parseFloat(document.getElementById('sub').value) || 0;
+            const sRefMensal = sRefDia * 22;
+            
+            const liqSemSub = base - ssTrabalhador - irs;
+            const liqComSub = liqSemSub + sRefMensal;
+            const custoEmpresa = base + tsuEmpresa + sRefMensal;
 
-            detailsHtml = `
-                <div class="data-row"><span>Salário Bruto</span><span>${fmt(valorBase)}</span></div>
-                <div class="data-row"><span>Segurança Social (11%)</span><span style="color:#ef4444">-${fmt(ss)}</span></div>
-                <div class="data-row"><span>IRS Estimado</span><span style="color:#ef4444">-${fmt(irs)}</span></div>
-                <div class="data-row"><span>Subsídio Refeição</span><span style="color:var(--secondary)">+${fmt(sRef)}</span></div>
+            document.getElementById('res-total').innerText = fmt(liqComSub);
+            document.getElementById('res-custo').innerText = fmt(custoEmpresa);
+
+            details = `
+                <div class="data-row"><span>Salário Líquido (Sem Subsídio)</span><strong>${fmt(liqSemSub)}</strong></div>
+                <div class="data-row"><span>Segurança Social Trabalhador (11%)</span><span style="color:#ef4444">-${fmt(ssTrabalhador)}</span></div>
+                <div class="data-row"><span>Retenção na Fonte IRS</span><span style="color:#ef4444">-${fmt(irs)}</span></div>
+                <div class="data-row"><span>Subsídio de Refeição</span><span style="color:var(--secondary)">+${fmt(sRefMensal)}</span></div>
+                <div class="data-row" style="margin-top:10px; border-top: 2px solid #eee"><span>TSU Empresa (23,75%)</span><span>${fmt(tsuEmpresa)}</span></div>
             `;
-            document.getElementById('label-extra').innerText = "Inclui subsídio de refeição";
         } else {
-            const ss = valorBase * 0.70 * 0.214;
-            const irsTaxa = parseFloat(document.getElementById('irs').value);
-            const irsVal = valorBase * irsTaxa;
-            liq = valorBase - ss - irsVal;
+            const coef = parseFloat(document.getElementById('coef').value);
+            const ss = base * 0.70 * 0.214;
+            const irsVal = base * (parseFloat(document.getElementById('irs_rate').value) || 0);
+            const liq = base - ss - irsVal;
 
-            detailsHtml = `
-                <div class="data-row"><span>Faturação Mensal</span><span>${fmt(valorBase)}</span></div>
-                <div class="data-row"><span>Segurança Social</span><span style="color:#ef4444">-${fmt(ss)}</span></div>
+            document.getElementById('res-total').innerText = fmt(liq);
+            document.getElementById('res-custo').innerText = fmt(base); // ENI o custo é a faturação
+
+            details = `
+                <div class="data-row"><span>Base Tributável (${coef*100}%)</span><span>${fmt(base * coef)}</span></div>
+                <div class="data-row"><span>Segurança Social (21,4% de 70%)</span><span style="color:#ef4444">-${fmt(ss)}</span></div>
                 <div class="data-row"><span>Retenção IRS</span><span style="color:#ef4444">-${fmt(irsVal)}</span></div>
             `;
-            document.getElementById('label-extra').innerText = "Rendimento líquido após impostos";
         }
 
-        document.getElementById('breakdown').innerHTML = detailsHtml;
-        document.getElementById('val-final').innerText = fmt(liq);
+        document.getElementById('breakdown').innerHTML = details;
         document.getElementById('result-area').style.display = 'block';
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     }
-
     render();
 </script>
-
 </body>
 </html>

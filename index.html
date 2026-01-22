@@ -3,167 +3,305 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador de Rendimento Líquido Portugal 2026</title>
-    
-    <meta name="description" content="Simule o seu salário líquido em Portugal para 2026. Suporte para Trabalhadores por Conta de Outrem e Recibos Verdes (ENI) com coeficientes de tributação atualizados.">
-    
-    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/4525/4525944.png">
+    <title>Simulador de Salário Líquido 2026</title>
+
+    <meta name="description" content="Calcule o seu salário líquido em Portugal para 2026. Simulador atualizado para trabalhadores por conta de outrem e recibos verdes.">
+
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2489/2489756.png">
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6163421497152187" crossorigin="anonymous"></script>
 
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        :root { --primary: #0f172a; --accent: #0369a1; --bg: #f8fafc; --gold: #b45309; --success: #15803d; }
-        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: #334155; padding: 10px; margin: 0; }
-        
-        .container { max-width: 750px; margin: 10px auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); position: relative; overflow: hidden; }
-        .container::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, var(--primary), var(--gold)); }
+        :root {
+            --primary: #2563eb; /* Azul Financeiro */
+            --secondary: #10b981; /* Verde Sucesso */
+            --dark: #0f172a;
+            --light-bg: #f1f5f9;
+            --white: #ffffff;
+        }
 
-        .header-seal { text-align: center; margin-bottom: 15px; color: var(--gold); font-size: 3.5rem; }
-        h1 { font-size: 1.3rem; color: var(--primary); text-align: center; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 0.5px; }
-        
-        .regime-selector { display: flex; background: #f1f5f9; padding: 5px; border-radius: 10px; margin-bottom: 25px; border: 1px solid #e2e8f0; }
-        .regime-btn { flex: 1; padding: 12px; border: none; border-radius: 7px; cursor: pointer; font-weight: 700; background: transparent; color: #64748b; transition: 0.2s; }
-        .regime-btn.active { background: white; color: var(--primary); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark);
+            margin: 0;
+            padding: 20px;
+        }
 
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .full { grid-column: span 2; }
-        
-        label { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 0.85rem; margin-bottom: 6px; color: #475569; }
-        label i { color: var(--gold); width: 16px; }
+        .main-card {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        }
 
-        input, select { width: 100%; height: 48px; padding: 0 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 16px; box-sizing: border-box; background: #fff; }
-        
-        button.calculate-btn { width: 100%; height: 56px; background: var(--primary); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 20px; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        button.calculate-btn:hover { background: #1e293b; transform: translateY(-1px); }
-        
-        #results { margin-top: 25px; display: none; border: 2px solid #e2e8f0; border-radius: 10px; padding: 20px; background: #fff; animation: slideUp 0.3s ease-out; }
-        .res-line { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed #e2e8f0; font-size: 0.95rem; }
-        
-        .result-layout { display: grid; grid-template-columns: 1fr 300px; gap: 20px; }
-        .total-box { background: var(--primary); color: white; padding: 25px; border-radius: 8px; text-align: center; display: flex; flex-direction: column; justify-content: center; }
-        
-        .footer-legal { margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0; font-size: 0.72rem; color: #94a3b8; text-align: center; line-height: 1.4; }
-        .ad-spacer { margin: 20px 0; min-height: 90px; background: #fafafa; border: 1px solid #eee; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 9px; color: #ccc; }
+        .header-icon {
+            width: 60px;
+            height: 60px;
+            background: #dcfce7;
+            color: var(--secondary);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 20px;
+        }
 
-        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        @media (max-width: 650px) { .grid, .result-layout { grid-template-columns: 1fr; } .full { grid-column: span 1; } }
+        h1 {
+            text-align: center;
+            font-weight: 800;
+            font-size: 1.6rem;
+            color: var(--dark);
+            margin-bottom: 30px;
+        }
+
+        /* Selector de Regime Estilo "Pill" */
+        .regime-nav {
+            display: flex;
+            background: var(--light-bg);
+            padding: 6px;
+            border-radius: 14px;
+            margin-bottom: 30px;
+        }
+
+        .regime-option {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            color: #64748b;
+            background: transparent;
+        }
+
+        .regime-option.active {
+            background: var(--white);
+            color: var(--primary);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Form Layout */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .input-box {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #475569;
+        }
+
+        input, select {
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 14px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: 0.2s;
+        }
+
+        input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .full-width { grid-column: span 2; }
+
+        .btn-calc {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: 0.2s;
+        }
+
+        .btn-calc:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Resultados Estilo Moderno */
+        #result-area {
+            display: none;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #f1f5f9;
+        }
+
+        .summary-card {
+            background: #0f172a;
+            color: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .liquid-value {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--secondary);
+            margin: 10px 0;
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.95rem;
+        }
+
+        .ad-banner {
+            background: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            margin: 25px 0;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 0.7rem;
+            border-radius: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="header-seal">
-        <i class="fas fa-certificate"></i>
+<div class="main-card">
+    <div class="header-icon">
+        <i class="fas fa-wallet"></i>
     </div>
-    <h1>Simulador de Rendimento Líquido</h1>
+    <h1>Simulador Salário Líquido</h1>
 
-    <div class="regime-selector">
-        <button id="btn-tco" class="regime-btn active" onclick="setRegime('tco')">Conta de Outrem</button>
-        <button id="btn-eni" class="regime-btn" onclick="setRegime('eni')">Recibos Verdes</button>
+    <div class="regime-nav">
+        <button id="btn-tco" class="regime-option active" onclick="changeRegime('tco')">Trabalhador Ativo</button>
+        <button id="btn-eni" class="regime-option" onclick="changeRegime('eni')">Recibos Verdes</button>
     </div>
 
-    <div class="ad-spacer">ESPAÇO PUBLICITÁRIO</div>
-    
-    <div class="grid" id="inputs-grid">
+    <div class="ad-banner">ANÚNCIO GOOGLE</div>
+
+    <div class="form-grid" id="fields-container">
         </div>
 
-    <button class="calculate-btn" onclick="calcular()">
-        <i class="fas fa-stamp"></i> CALCULAR RENDIMENTO
+    <button class="btn-calc" onclick="processar()">
+        Calcular Agora <i class="fas fa-arrow-right"></i>
     </button>
 
-    <div id="results">
-        <div class="result-layout">
-            <div id="detailed-results"></div>
-            <div class="total-box">
-                <div style="font-size: 0.8rem; opacity: 0.8; margin-bottom: 10px;">TOTAL LÍQUIDO DISPONÍVEL</div>
-                <div id="out_total_final" style="font-size: 2.2rem; font-weight: 800; color: #fbbf24;">0,00 €</div>
-                <div id="sub-info-label" style="font-size: 0.7rem; margin-top: 10px; opacity: 0.8;"></div>
-            </div>
+    <div id="result-area">
+        <div class="summary-card">
+            <span style="opacity: 0.7; font-size: 0.9rem; font-weight: 600;">VALOR LÍQUIDO MENSAL</span>
+            <div id="val-final" class="liquid-value">0,00 €</div>
+            <div id="label-extra" style="font-size: 0.8rem; opacity: 0.6;"></div>
         </div>
-        <div class="ad-spacer">ESPAÇO PUBLICITÁRIO</div>
-    </div>
 
-    <div class="footer-legal">
-        Estimativa baseada nas Tabelas de Retenção e CIRS vigentes para 2026. Este simulador tem caráter informativo e não substitui o aconselhamento contabilístico oficial.
+        <div style="margin-top: 25px;" id="breakdown">
+            </div>
+
+        <div class="ad-banner">ANÚNCIO GOOGLE</div>
     </div>
 </div>
 
 <script>
-    let currentRegime = 'tco';
+    let regime = 'tco';
 
-    function setRegime(regime) {
-        currentRegime = regime;
-        document.getElementById('btn-tco').classList.toggle('active', regime === 'tco');
-        document.getElementById('btn-eni').classList.toggle('active', regime === 'eni');
-        renderInputs();
-        document.getElementById('results').style.display = 'none';
+    function changeRegime(type) {
+        regime = type;
+        document.getElementById('btn-tco').classList.toggle('active', type === 'tco');
+        document.getElementById('btn-eni').classList.toggle('active', type === 'eni');
+        render();
+        document.getElementById('result-area').style.display = 'none';
     }
 
-    function renderInputs() {
-        const grid = document.getElementById('inputs-grid');
-        if (currentRegime === 'tco') {
-            grid.innerHTML = `
-                <div class="full"><label><i class="fas fa-money-bill-wave"></i> Salário Bruto Mensal (€)</label><input type="number" id="bruto" value="1500"></div>
-                <div><label><i class="fas fa-utensils"></i> Subsídio Refeição / Dia (€)</label><input type="number" id="sub" value="9.60" step="0.10"></div>
-                <div><label><i class="fas fa-users"></i> Dependentes</label><input type="number" id="dep" value="0"></div>
-                <div class="full"><label><i class="fas fa-heart"></i> Estado Civil</label><select id="civil"><option value="solteiro">Solteiro / Não Casado</option><option value="casado">Casado 1 Titular</option></select></div>
+    function render() {
+        const container = document.getElementById('fields-container');
+        if(regime === 'tco') {
+            container.innerHTML = `
+                <div class="input-box full-width"><label>Vencimento Base (€)</label><input type="number" id="base" value="1500"></div>
+                <div class="input-box"><label>Subsídio Refeição/Dia</label><input type="number" id="sub" value="9.60"></div>
+                <div class="input-box"><label>Dependentes</label><input type="number" id="dep" value="0"></div>
             `;
         } else {
-            grid.innerHTML = `
-                <div class="full"><label><i class="fas fa-briefcase"></i> Coeficiente de Tributação (Art. 31º CIRS)</label>
+            container.innerHTML = `
+                <div class="input-box full-width"><label>Tipo de Atividade</label>
                 <select id="coef">
-                    <option value="0.75">75% - Profissões Liberais (Lista 151º)</option>
-                    <option value="0.35">35% - Outras Prestações de Serviços</option>
-                    <option value="0.15">15% - Vendas de Mercadorias</option>
-                    <option value="0.10">10% - Alojamento Local</option>
+                    <option value="0.75">Profissões Liberais (75%)</option>
+                    <option value="0.35">Outros Serviços (35%)</option>
+                    <option value="0.15">Vendas e Mercadorias (15%)</option>
                 </select></div>
-                <div><label><i class="fas fa-file-invoice-dollar"></i> Faturação Mensal (€)</label><input type="number" id="bruto" value="2500"></div>
-                <div><label><i class="fas fa-percent"></i> Taxa Retenção IRS</label><select id="irs_rate"><option value="0.25">25% (Padrão)</option><option value="0.10">10% (Novas Atividades)</option><option value="0">Isento</option></select></div>
+                <div class="input-box"><label>Faturação Bruta (€)</label><input type="number" id="base" value="2500"></div>
+                <div class="input-box"><label>Retenção IRS</label><select id="irs"><option value="0.25">25%</option><option value="0.10">10%</option><option value="0">Isento</option></select></div>
             `;
         }
     }
 
-    function calcular() {
-        const bruto = parseFloat(document.getElementById('bruto').value) || 0;
-        let totalFinal = 0, html = "";
-        const eur = (v) => v.toLocaleString('pt-PT', { style: 'currency', currency: 'EUR' });
+    function processar() {
+        const valorBase = parseFloat(document.getElementById('base').value) || 0;
+        const fmt = (v) => v.toLocaleString('pt-PT', { style: 'currency', currency: 'EUR' });
+        let liq = 0;
+        let detailsHtml = "";
 
-        if (currentRegime === 'tco') {
-            const ss = bruto * 0.11;
-            const subMensal = (parseFloat(document.getElementById('sub').value) || 0) * 22;
-            const irs = (bruto > 930) ? (bruto * 0.12) : 0; // Simplificação para exemplo
-            totalFinal = bruto - ss - irs + subMensal;
+        if(regime === 'tco') {
+            const ss = valorBase * 0.11;
+            const irs = valorBase > 950 ? (valorBase * 0.12) : 0;
+            const sRef = (parseFloat(document.getElementById('sub').value) || 0) * 22;
+            liq = valorBase - ss - irs + sRef;
 
-            html = `
-                <div class="res-line"><span><i class="fas fa-minus-circle" style="color:#dc2626"></i> Seg. Social (11%):</span> <span>${eur(ss)}</span></div>
-                <div class="res-line"><span><i class="fas fa-minus-circle" style="color:#dc2626"></i> IRS (Est.):</span> <span>${eur(irs)}</span></div>
-                <div class="res-line"><span><i class="fas fa-plus-circle" style="color:#15803d"></i> Subsídio Refeição:</span> <span>${eur(subMensal)}</span></div>
+            detailsHtml = `
+                <div class="data-row"><span>Salário Bruto</span><span>${fmt(valorBase)}</span></div>
+                <div class="data-row"><span>Segurança Social (11%)</span><span style="color:#ef4444">-${fmt(ss)}</span></div>
+                <div class="data-row"><span>IRS Estimado</span><span style="color:#ef4444">-${fmt(irs)}</span></div>
+                <div class="data-row"><span>Subsídio Refeição</span><span style="color:var(--secondary)">+${fmt(sRef)}</span></div>
             `;
-            document.getElementById('sub-info-label').innerText = "(Salário Líquido + Subsídio Refeição)";
+            document.getElementById('label-extra').innerText = "Inclui subsídio de refeição";
         } else {
-            const coef = parseFloat(document.getElementById('coef').value);
-            const irsRate = parseFloat(document.getElementById('irs_rate').value);
-            const ss = bruto * 0.70 * 0.214;
-            const irsRetido = bruto * irsRate;
-            totalFinal = bruto - ss - irsRetido;
+            const ss = valorBase * 0.70 * 0.214;
+            const irsTaxa = parseFloat(document.getElementById('irs').value);
+            const irsVal = valorBase * irsTaxa;
+            liq = valorBase - ss - irsVal;
 
-            html = `
-                <div class="res-line"><span><i class="fas fa-calculator"></i> Rend. Tributável (${coef*100}%):</span> <span>${eur(bruto * coef)}</span></div>
-                <div class="res-line"><span><i class="fas fa-university"></i> Seg. Social (21.4%):</span> <span>${eur(ss)}</span></div>
-                <div class="res-line"><span><i class="fas fa-file-invoice"></i> Retenção IRS:</span> <span>${eur(irsRetido)}</span></div>
+            detailsHtml = `
+                <div class="data-row"><span>Faturação Mensal</span><span>${fmt(valorBase)}</span></div>
+                <div class="data-row"><span>Segurança Social</span><span style="color:#ef4444">-${fmt(ss)}</span></div>
+                <div class="data-row"><span>Retenção IRS</span><span style="color:#ef4444">-${fmt(irsVal)}</span></div>
             `;
-            document.getElementById('sub-info-label').innerText = "(Rendimento Mensal Líquido Estimado)";
+            document.getElementById('label-extra').innerText = "Rendimento líquido após impostos";
         }
 
-        document.getElementById('detailed-results').innerHTML = html;
-        document.getElementById('out_total_final').innerText = eur(totalFinal);
-        document.getElementById('results').style.display = 'block';
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        document.getElementById('breakdown').innerHTML = detailsHtml;
+        document.getElementById('val-final').innerText = fmt(liq);
+        document.getElementById('result-area').style.display = 'block';
     }
 
-    renderInputs();
+    render();
 </script>
 
 </body>

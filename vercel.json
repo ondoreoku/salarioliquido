@@ -1,7 +1,12 @@
 {
-  "cleanUrls": true,
-  "public": true,
   "rewrites": [
-    { "source": "/ads.txt", "destination": "/public/ads.txt" }
+    {
+      "source": "/ads.txt",
+      "destination": "/public/ads.txt"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
   ]
 }

@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simulador de Salário Líquido e Custo Empresa 2026</title>
 
-    <meta name="description" content="Simulador completo de salário líquido em Portugal para 2026. Calcule o custo total para a empresa e rendimento líquido com recibos verdes.">
+    <meta name="description" content="Simulador completo de salário líquido em Portugal para 2026. Calcule o custo total para a empresa e rendimento líquido com todos os coeficientes CIRS.">
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2489/2489756.png">
+    
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6163421497152187" crossorigin="anonymous"></script>
+    
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -18,57 +20,62 @@
         h1 { text-align: center; font-weight: 800; font-size: 1.5rem; margin-bottom: 30px; }
         
         .regime-nav { display: flex; background: var(--bg); padding: 6px; border-radius: 14px; margin-bottom: 30px; }
-        .regime-option { flex: 1; padding: 12px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; color: #64748b; background: transparent; }
+        .regime-option { flex: 1; padding: 12px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; color: #64748b; background: transparent; transition: 0.3s; }
         .regime-option.active { background: white; color: var(--primary); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
 
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .input-box { display: flex; flex-direction: column; gap: 8px; }
         label { font-size: 0.85rem; font-weight: 700; color: #475569; }
-        input, select { border: 2px solid #e2e8f0; border-radius: 12px; padding: 14px; font-size: 1rem; width: 100%; box-sizing: border-box; }
+        input, select { border: 2px solid #e2e8f0; border-radius: 12px; padding: 14px; font-size: 1rem; width: 100%; box-sizing: border-box; font-family: inherit; }
+        input:focus { border-color: var(--primary); outline: none; }
         .full-width { grid-column: span 2; }
 
-        .btn-calc { width: 100%; background: var(--primary); color: white; border: none; padding: 18px; border-radius: 14px; font-weight: 800; font-size: 1.1rem; cursor: pointer; margin-top: 25px; }
+        .btn-calc { width: 100%; background: var(--primary); color: white; border: none; padding: 18px; border-radius: 14px; font-weight: 800; font-size: 1.1rem; cursor: pointer; margin-top: 25px; transition: 0.2s; }
+        .btn-calc:hover { background: var(--dark); transform: translateY(-2px); }
 
         #result-area { display: none; margin-top: 40px; }
         .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
-        .card-res { padding: 20px; border-radius: 16px; text-align: center; }
+        .card-res { padding: 25px; border-radius: 20px; text-align: center; }
         .bg-dark { background: var(--dark); color: white; }
         .bg-blue { background: #dbeafe; color: var(--primary); }
-        .val { font-size: 1.8rem; font-weight: 800; display: block; margin-top: 5px; }
+        .val { font-size: 2rem; font-weight: 800; display: block; margin-top: 5px; }
         
-        .data-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
-        .ad-banner { background: #f8fafc; border: 1px dashed #cbd5e1; margin: 20px 0; min-height: 90px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: #94a3b8; }
+        .data-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f1f5f9; font-size: 0.95rem; }
+        .ad-banner { background: #f8fafc; border: 1px dashed #cbd5e1; margin: 25px 0; min-height: 90px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: #94a3b8; }
         @media (max-width: 600px) { .form-grid, .summary-grid { grid-template-columns: 1fr; } .full-width { grid-column: span 1; } }
     </style>
 </head>
 <body>
 
 <div class="main-card">
+    <div style="text-align: center; color: var(--secondary); font-size: 3rem; margin-bottom: 10px;"><i class="fas fa-wallet"></i></div>
     <h1>Simulador Salário Líquido 2026</h1>
 
     <div class="regime-nav">
-        <button id="btn-tco" class="regime-option active" onclick="changeRegime('tco')">Conta de Outrem</button>
+        <button id="btn-tco" class="regime-option active" onclick="changeRegime('tco')">Trabalhador por Conta de Outrem</button>
         <button id="btn-eni" class="regime-option" onclick="changeRegime('eni')">Recibos Verdes</button>
     </div>
 
+    <div class="ad-banner">ANÚNCIO GOOGLE</div>
+
     <div class="form-grid" id="fields-container"></div>
 
-    <button class="btn-calc" onclick="processar()">Calcular Rendimento Líquido</button>
+    <button class="btn-calc" onclick="processar()">Calcular Rendimento Líquido <i class="fas fa-calculator"></i></button>
 
     <div id="result-area">
         <div class="summary-grid">
             <div class="card-res bg-dark">
-                <span style="font-size: 0.75rem; opacity: 0.8;">LÍQUIDO (C/ SUBSÍDIO)</span>
+                <span style="font-size: 0.8rem; opacity: 0.8; font-weight: 600;">LÍQUIDO FINAL (C/ SUBSÍDIO)</span>
                 <span id="res-total" class="val" style="color: var(--secondary);">0,00 €</span>
             </div>
             <div class="card-res bg-blue">
-                <span style="font-size: 0.75rem;">CUSTO PARA EMPRESA</span>
+                <span style="font-size: 0.8rem; font-weight: 600;">CUSTO TOTAL EMPRESA</span>
                 <span id="res-custo" class="val">0,00 €</span>
             </div>
         </div>
 
         <div id="breakdown"></div>
-        <div class="ad-banner">ESPAÇO PUBLICITÁRIO</div>
+        <div class="ad-banner">ANÚNCIO GOOGLE</div>
     </div>
 </div>
 
@@ -91,20 +98,35 @@
                 <div class="input-box full-width"><label>Salário Bruto Mensal (€)</label><input type="number" id="base" value="1500"></div>
                 <div class="input-box"><label>Subsídio Refeição/Dia (€)</label><input type="number" id="sub" value="9.60"></div>
                 <div class="input-box"><label>Dependentes</label><input type="number" id="dep" value="0"></div>
-                <div class="input-box full-width"><label>Subsídio em Cartão?</label>
-                <select id="sub_tipo"><option value="cartao">Sim (Isento até 9,60€)</option><option value="dinheiro">Não, em Dinheiro (Isento até 6,00€)</option></select></div>
+                <div class="input-box full-width"><label>Estado Civil</label>
+                <select id="civil">
+                    <option value="solteiro">Solteiro / Não Casado</option>
+                    <option value="casado">Casado (1 ou 2 titulares)</option>
+                </select></div>
             `;
         } else {
             container.innerHTML = `
                 <div class="input-box full-width"><label>Coeficiente CIRS (Art. 31º)</label>
                 <select id="coef">
-                    <option value="0.75">75% - Profissões Liberais</option>
-                    <option value="0.35">35% - Outras Prestações Serviços</option>
-                    <option value="0.15">15% - Vendas Mercadorias</option>
-                    <option value="0.10">10% - Alojamento Local</option>
+                    <option value="0.75">75% - Atividades Profissionais (Lista Art. 151º)</option>
+                    <option value="0.35">35% - Outras Prestações de Serviços</option>
+                    <option value="0.15">15% - Vendas de Mercadorias e Produtos</option>
+                    <option value="0.35">35% - Restauração e Hotelaria</option>
+                    <option value="0.10">10% - Alojamento Local (Moradias/Apartamentos)</option>
+                    <option value="0.04">4% - Alojamento Local (Hostels/Dormitórios)</option>
+                    <option value="0.95">95% - Propriedade Intelectual ou Capitais</option>
+                    <option value="0.10">10% - Atividades Agrícolas / Pecuárias</option>
+                    <option value="0.50">50% - Mineração de Criptoativos</option>
+                    <option value="0.95">95% - Rendimentos de Criptoativos (Sem Mineração)</option>
                 </select></div>
-                <div class="input-box"><label>Faturação Bruta (€)</label><input type="number" id="base" value="2500"></div>
-                <div class="input-box"><label>Retenção IRS</label><select id="irs_rate"><option value="0.25">25%</option><option value="0.10">10%</option><option value="0">Isento</option></select></div>
+                <div class="input-box"><label>Faturação Bruta Mensal (€)</label><input type="number" id="base" value="2500"></div>
+                <div class="input-box"><label>Retenção IRS</label>
+                <select id="irs_rate">
+                    <option value="0.25">25% (Padrão)</option>
+                    <option value="0.10">10% (Novas Atividades)</option>
+                    <option value="0.115">11,5% (Propriedade Intelectual)</option>
+                    <option value="0">Isento / Sem Retenção</option>
+                </select></div>
             `;
         }
     }
@@ -116,23 +138,23 @@
         if(regime === 'tco') {
             const ssTrabalhador = base * 0.11;
             const tsuEmpresa = base * 0.2375;
-            const irs = base > 930 ? (base * 0.12) : 0; // Simplificação
-            const sRefDia = parseFloat(document.getElementById('sub').value) || 0;
-            const sRefMensal = sRefDia * 22;
+            const irs = base > 930 ? (base * 0.12) : 0;
+            const sRefMensal = (parseFloat(document.getElementById('sub').value) || 0) * 22;
             
             const liqSemSub = base - ssTrabalhador - irs;
             const liqComSub = liqSemSub + sRefMensal;
-            const custoEmpresa = base + tsuEmpresa + sRefMensal;
+            const custoTotal = base + tsuEmpresa + sRefMensal;
 
             document.getElementById('res-total').innerText = fmt(liqComSub);
-            document.getElementById('res-custo').innerText = fmt(custoEmpresa);
+            document.getElementById('res-custo').innerText = fmt(custoTotal);
 
             details = `
+                <div class="data-row"><span>Salário Bruto</span><span>${fmt(base)}</span></div>
                 <div class="data-row"><span>Salário Líquido (Sem Subsídio)</span><strong>${fmt(liqSemSub)}</strong></div>
-                <div class="data-row"><span>Segurança Social Trabalhador (11%)</span><span style="color:#ef4444">-${fmt(ssTrabalhador)}</span></div>
-                <div class="data-row"><span>Retenção na Fonte IRS</span><span style="color:#ef4444">-${fmt(irs)}</span></div>
-                <div class="data-row"><span>Subsídio de Refeição</span><span style="color:var(--secondary)">+${fmt(sRefMensal)}</span></div>
-                <div class="data-row" style="margin-top:10px; border-top: 2px solid #eee"><span>TSU Empresa (23,75%)</span><span>${fmt(tsuEmpresa)}</span></div>
+                <div class="data-row"><span>Segurança Social (11%)</span><span style="color:#ef4444">-${fmt(ssTrabalhador)}</span></div>
+                <div class="data-row"><span>IRS Retenção (Est.)</span><span style="color:#ef4444">-${fmt(irs)}</span></div>
+                <div class="data-row"><span>Subsídio Refeição (22 dias)</span><span style="color:var(--secondary)">+${fmt(sRefMensal)}</span></div>
+                <div class="data-row" style="margin-top:15px; border-top: 1px solid #eee; padding-top:15px;"><span>TSU Empresa (23,75%)</span><span>${fmt(tsuEmpresa)}</span></div>
             `;
         } else {
             const coef = parseFloat(document.getElementById('coef').value);
@@ -141,12 +163,13 @@
             const liq = base - ss - irsVal;
 
             document.getElementById('res-total').innerText = fmt(liq);
-            document.getElementById('res-custo').innerText = fmt(base); // ENI o custo é a faturação
+            document.getElementById('res-custo').innerText = fmt(base);
 
             details = `
-                <div class="data-row"><span>Base Tributável (${coef*100}%)</span><span>${fmt(base * coef)}</span></div>
-                <div class="data-row"><span>Segurança Social (21,4% de 70%)</span><span style="color:#ef4444">-${fmt(ss)}</span></div>
-                <div class="data-row"><span>Retenção IRS</span><span style="color:#ef4444">-${fmt(irsVal)}</span></div>
+                <div class="data-row"><span>Faturação Mensal</span><span>${fmt(base)}</span></div>
+                <div class="data-row"><span>Rendimento Tributável (${coef*100}%)</span><span>${fmt(base * coef)}</span></div>
+                <div class="data-row"><span>Segurança Social (Est.)</span><span style="color:#ef4444">-${fmt(ss)}</span></div>
+                <div class="data-row"><span>Retenção IRS na Fonte</span><span style="color:#ef4444">-${fmt(irsVal)}</span></div>
             `;
         }
 

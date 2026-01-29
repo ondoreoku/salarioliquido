@@ -20,3 +20,25 @@ input, select { width: 100%; padding: 10px; border: 1px solid #d1d5db; border-ra
 .info-content { text-align: justify; line-height: 1.6; }
 footer { text-align: center; padding: 40px 0; border-top: 1px solid #e5e7eb; }
 footer a { color: #6b7280; text-decoration: none; margin: 0 10px; font-size: 0.8rem; }
+/* Navbar Global */
+.navbar-global { background: #111827; padding: 12px 0; margin-bottom: 30px; }
+.nav-container { max-width: 900px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+.nav-logo { color: white; font-weight: bold; text-decoration: none; font-size: 1.2rem; }
+.nav-links { list-style: none; display: flex; gap: 15px; margin: 0; padding: 0; }
+.nav-links a { color: #9ca3af; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+.nav-links a:hover { color: white; }
+
+/* Estilo Base do Simulador */
+:root { --primary: #059669; --bg: #f9fafb; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; color: #111827; }
+.container { max-width: 850px; margin: 0 auto; padding: 0 20px; }
+.card { background: white; padding: 25px; border-radius: 12px; border: 1px solid #e5e7eb; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 25px; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.input-group label { font-size: 0.8rem; font-weight: 600; color: #374151; display: block; margin-bottom: 5px; }
+input, select { width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 6px; box-sizing: border-box; }
+.btn-main { width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: bold; margin-top: 20px; cursor: pointer; }
+.big-val { font-size: 2rem; font-weight: 800; color: var(--primary); }
+.res-card { text-align: center; background: #ecfdf5; padding: 15px; border-radius: 10px; }
+.info-content { text-align: justify; line-height: 1.6; }
+footer { text-align: center; padding: 40px 0; border-top: 1px solid #e5e7eb; }
+footer a { color: #6b7280; text-decoration: none; margin: 0 10px; font-size: 0.8rem; }

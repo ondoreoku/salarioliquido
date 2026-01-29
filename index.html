@@ -4,127 +4,154 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simulador de Rendimento Líquido 2026 - Completo</title>
-    <meta name="description" content="Simulador de salário líquido 2026 para Portugal. Calcule recibos verdes com todos os coeficientes do Artigo 31º do CIRS e rendimentos por conta de outrem.">
+
+    <meta name="description" content="Simulador de Rendimento Líquido 2026. Calcule o salário líquido para Trabalhadores Independentes (Art. 31º CIRS) e Conta de Outrem com rigor total.">
+    <meta name="keywords" content="salário líquido 2026, recibos verdes, artigo 31 cirs, irs portugal, segurança social">
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6163421497152187" crossorigin="anonymous"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #1e40af; --bg: #f8fafc; --card: #ffffff; --text: #1e293b; --border: #cbd5e1; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 15px; }
-        .container { max-width: 900px; margin: 0 auto; }
+        :root { --primary: #1e40af; --primary-dark: #1e3a8a; --bg: #f8fafc; --card: #ffffff; --text: #1e293b; --border: #cbd5e1; --accent: #fbbf24; --secondary: #10b981; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 15px; line-height: 1.6; }
+        .container { max-width: 950px; margin: 0 auto; }
+        .ad-slot { margin: 20px 0; text-align: center; background: #f1f5f9; border-radius: 8px; min-height: 90px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .regime-selector { display: flex; background: #e2e8f0; padding: 5px; border-radius: 12px; margin-bottom: 2rem; border: 1px solid var(--border); }
+        .regime-btn { flex: 1; padding: 14px; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; background: transparent; color: #475569; font-size: 0.95rem; }
+        .regime-btn.active { background: white; color: var(--primary); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .card { background: var(--card); padding: 2rem; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 1.5rem; border: 1px solid var(--border); }
-        .ad-slot { background: #f1f5f9; min-height: 90px; text-align: center; margin: 20px 0; display: flex; align-items: center; justify-content: center; border-radius: 8px; }
-        .regime-selector { display: flex; background: #e2e8f0; padding: 5px; border-radius: 12px; margin-bottom: 2rem; }
-        .regime-btn { flex: 1; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; background: transparent; color: #475569; }
-        .regime-btn.active { background: white; color: var(--primary); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .grid { display: grid; grid-template-columns: 1fr; gap: 1.2rem; }
-        @media (min-width: 600px) { .grid { grid-template-columns: 1fr 1fr; } }
-        input, select { padding: 12px; border: 2px solid var(--border); border-radius: 8px; width: 100%; box-sizing: border-box; }
-        .btn-calc { width: 100%; background: var(--primary); color: white; border: none; padding: 1rem; border-radius: 12px; font-size: 1.1rem; font-weight: 700; cursor: pointer; margin-top: 1rem; }
-        #results { display: none; margin-top: 2rem; border-top: 4px solid var(--primary); padding-top: 1rem; }
-        .info-section { line-height: 1.8; color: #475569; }
-        .info-section h3 { color: var(--primary); }
-        footer { text-align: center; font-size: 0.85rem; padding: 2rem 0; color: #64748b; }
+        h1 { text-align: center; color: var(--primary); font-size: 1.8rem; margin-bottom: 2rem; }
+        h2, h3 { color: var(--primary); }
+        .grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+        @media (min-width: 640px) { .grid { grid-template-columns: 1fr 1fr; } }
+        .input-group { display: flex; flex-direction: column; }
+        label { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem; color: #475569; }
+        input, select { padding: 12px; border: 2px solid var(--border); border-radius: 10px; font-size: 0.95rem; width: 100%; box-sizing: border-box; }
+        .btn-calculate { width: 100%; background: var(--primary); color: white; border: none; padding: 1.2rem; border-radius: 12px; font-size: 1.2rem; font-weight: 800; cursor: pointer; margin-top: 1rem; }
+        #results { display: none; border-left: 6px solid var(--primary); }
+        #results.show { display: block; animation: slideUp 0.3s ease-out; }
+        .res-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f1f5f9; }
+        .val { font-weight: 700; font-family: 'Monaco', monospace; }
+        .highlight-box { background: var(--primary); color: white; border-radius: 16px; padding: 2rem; text-align: center; margin-top: 1rem; }
+        .info-content { margin-top: 3rem; font-size: 0.95rem; color: #475569; }
+        footer { margin-top: 2rem; padding: 2rem 0; border-top: 1px solid var(--border); text-align: center; font-size: 0.85rem; }
         footer a { color: var(--primary); text-decoration: none; margin: 0 10px; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Simulador de Rendimento Líquido</h1>
+    <main class="container">
+        <h1>Simulador de Rendimento Líquido 2026</h1>
 
-    <div class="ad-slot">
-        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6163421497152187" data-ad-slot="topo" data-ad-format="auto"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-    </div>
-
-    <div class="regime-selector">
-        <button id="btn-tco" class="regime-btn active" onclick="setRegime('tco')">Trabalhador por Conta de Outrem</button>
-        <button id="btn-eni" class="regime-btn" onclick="setRegime('eni')">Recibos Verdes (ENI)</button>
-    </div>
-
-    <div class="card">
-        <div id="inputs-grid" class="grid"></div>
-        <button class="btn-calc" onclick="calcular()">Calcular Agora</button>
-        
-        <div id="results">
-            <div id="detailed-results"></div>
-            <div style="background: var(--primary); color: white; padding: 1.5rem; border-radius: 12px; text-align: center; margin-top: 1rem;">
-                <small>VALOR LÍQUIDO ESTIMADO</small>
-                <div id="total-final" style="font-size: 2rem; font-weight: 800;"></div>
-            </div>
+        <div class="ad-slot">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6163421497152187" data-ad-slot="topo" data-ad-format="auto"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
-    </div>
 
-    <section class="card info-section">
-        <h3>Guia: Como funciona o Artigo 31.º do CIRS em 2026?</h3>
-        <p>Calcular o salário líquido em Portugal exige atenção às constantes atualizações fiscais. Este simulador foi desenhado para profissionais que trabalham a <strong>Recibos Verdes</strong> (Regime Simplificado) e precisam de saber exatamente quanto sobra após impostos.</p>
-        
-        <p>A base do cálculo para trabalhadores independentes é o <strong>Artigo 31.º do CIRS</strong>, que aplica coeficientes de faturação para determinar o rendimento tributável:</p>
-        <ul>
-            <li><strong>Coeficiente 75%:</strong> Aplicado à maioria das profissões liberais (médicos, advogados, engenheiros).</li>
-            <li><strong>Coeficiente 35%:</strong> Para prestações de serviços não especificadas e atividades hoteleiras.</li>
-            <li><strong>Coeficiente 15%:</strong> No caso de venda de mercadorias.</li>
-            <li><strong>Novos Coeficientes (Cripto):</strong> Rendimentos de criptoativos variam entre 50% (mineração) e 95%.</li>
-        </ul>
-        
-        <h3>Segurança Social e Retenção na Fonte</h3>
-        <p>Além do IRS anual, o trabalhador deve considerar a retenção na fonte mensal (geralmente 25%) e a contribuição para a <strong>Segurança Social</strong>, que incide sobre 70% do rendimento médio trimestral, com uma taxa de 21,4%.</p>
-    </section>
+        <div class="regime-selector">
+            <button id="btn-tco" class="regime-btn active" onclick="setRegime('tco')">Trabalhador por Conta de Outrem</button>
+            <button id="btn-eni" class="regime-btn" onclick="setRegime('eni')">Recibos Verdes (ENI)</button>
+        </div>
 
-    <div class="ad-slot">
-        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6163421497152187" data-ad-slot="fundo" data-ad-format="auto"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-    </div>
+        <section class="card">
+            <h2>Dados do Rendimento</h2>
+            <div class="grid" id="inputs-grid"></div>
+            <button class="btn-calculate" onclick="calcular()">Calcular Rendimento Líquido</button>
+        </section>
 
-    <footer>
-        <p>&copy; 2026 Simulador de Rendimento Líquido</p>
-        <a href="privacidade.html">Política de Privacidade</a> | 
-        <a href="termos.html">Termos de Uso</a> | 
-        <a href="contacto.html">Contacto</a>
-    </footer>
-</div>
+        <section id="results" class="card">
+            <div id="detailed-results"></div>
+            <div class="highlight-box">
+                <small>TOTAL DISPONÍVEL MENSAL (LÍQUIDO)</small>
+                <div id="out_total_final" style="font-size: 2.6rem; font-weight: 800; color: var(--accent);"></div>
+                <small id="sub-info-label"></small>
+            </div>
+        </section>
 
-<script>
-    let currentRegime = 'tco';
-    function setRegime(r) { currentRegime = r; render(); }
+        <section class="card info-content">
+            <h3>Sobre o Cálculo de Rendimentos em 2026</h3>
+            <p>Este simulador foi desenvolvido para oferecer uma estimativa rigorosa do rendimento disponível em Portugal. Para <strong>Trabalhadores Independentes</strong>, o cálculo foca-se no Regime Simplificado do <strong>Artigo 31.º do CIRS</strong>.</p>
+            
+            <h4>O que são os Coeficientes do Artigo 31.º?</h4>
+            <p>Os coeficientes definem a parcela do seu rendimento que o Estado considera "lucro" e sobre a qual incidirá o IRS. Por exemplo:</p>
+            <ul>
+                <li><strong>0.75:</strong> Para atividades profissionais da lista do Artigo 151.º.</li>
+                <li><strong>0.35:</strong> Para serviços de restauração e hotelaria ou serviços não listados.</li>
+                <li><strong>0.95:</strong> Rendimentos de capitais ou propriedade industrial.</li>
+                <li><strong>0.50 a 0.95:</strong> Atividades relacionadas com criptoativos (mineração ou alienação).</li>
+            </ul>
+            <p>A <strong>Segurança Social</strong> para recibos verdes é calculada sobre uma base de incidência de 70% do rendimento relevante, com uma taxa contributiva de 21,4%.</p>
+        </section>
 
-    function render() {
-        const g = document.getElementById('inputs-grid');
-        document.getElementById('btn-tco').className = 'regime-btn ' + (currentRegime==='tco'?'active':'');
-        document.getElementById('btn-eni').className = 'regime-btn ' + (currentRegime==='eni'?'active':'');
-        
-        if(currentRegime === 'tco') {
-            g.innerHTML = `<label>Salário Bruto (€)<input type="number" id="bruto" value="1500"></label>
-                           <label>Sub. Refeição/Dia (€)<input type="number" id="sub" value="9.60"></label>`;
-        } else {
-            g.innerHTML = `<label>Faturação Mensal (€)<input type="number" id="bruto" value="2500"></label>
-                           <label>Coeficiente (Art. 31º)
-                               <select id="coef">
-                                   <option value="0.75">75% - Profissões Liberais</option>
-                                   <option value="0.35">35% - Serviços/Restauração</option>
-                                   <option value="0.15">15% - Venda de Produtos</option>
-                                   <option value="0.95">95% - Capitais / Cripto</option>
-                               </select>
-                           </label>`;
+        <div class="ad-slot">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6163421497152187" data-ad-slot="fundo" data-ad-format="auto"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 Simulador de Rendimento Líquido</p>
+            <a href="privacidade.html">Política de Privacidade</a> | 
+            <a href="termos.html">Termos de Uso</a> | 
+            <a href="contacto.html">Contacto</a>
+        </footer>
+    </main>
+
+    <script>
+        let currentRegime = 'tco';
+
+        function setRegime(regime) {
+            currentRegime = regime;
+            document.getElementById('btn-tco').classList.toggle('active', regime === 'tco');
+            document.getElementById('btn-eni').classList.toggle('active', regime === 'eni');
+            renderInputs();
+            document.getElementById('results').classList.remove('show');
         }
-    }
 
-    function calcular() {
-        const bruto = parseFloat(document.getElementById('bruto').value);
-        let liq = 0;
-        if(currentRegime === 'tco') {
-            liq = bruto * 0.76; // Estimativa simplificada
-        } else {
-            const c = parseFloat(document.getElementById('coef').value);
-            const ss = bruto * 0.7 * 0.214;
-            liq = bruto - ss - (bruto * 0.25);
+        function renderInputs() {
+            const grid = document.getElementById('inputs-grid');
+            if (currentRegime === 'tco') {
+                grid.innerHTML = `
+                    <div class="input-group"><label>Salário Bruto Mensal (€)</label><input type="number" id="bruto" value="1500"></div>
+                    <div class="input-group"><label>Sub. Refeição/Dia (€)</label><input type="number" id="sub" value="9.60"></div>
+                    <div class="input-group">
+                        <label>Tipo de Recebimento</label>
+                        <select id="sub_tipo">
+                            <option value="cartao">Cartão (Isento até 9.60€)</option>
+                            <option value="dinheiro">Dinheiro (Isento até 6.00€)</option>
+                        </select>
+                    </div>
+                    <div class="input-group"><label>Dependentes</label><input type="number" id="dep" value="0"></div>`;
+            } else {
+                grid.innerHTML = `
+                    <div class="input-group" style="grid-column: 1 / -1;">
+                        <label>Coeficiente (Art. 31º CIRS)</label>
+                        <select id="coef">
+                            <option value="0.75">75% - Profissões Listadas (Art. 151º)</option>
+                            <option value="0.35">35% - Outros Serviços / Restauração</option>
+                            <option value="0.15">15% - Venda de Mercadorias</option>
+                            <option value="0.10">10% - Alojamento Local (Moradias)</option>
+                            <option value="0.95">95% - Capitais / Criptoativos</option>
+                            <option value="0.50">50% - Mineração de Cripto</option>
+                        </select>
+                    </div>
+                    <div class="input-group"><label>Faturação Mensal (€)</label><input type="number" id="bruto" value="2500"></div>
+                    <div class="input-group">
+                        <label>Taxa Retenção IRS</label>
+                        <select id="irs_rate">
+                            <option value="0.25">25% (Padrão)</option>
+                            <option value="0.10">10% (Novas Atividades)</option>
+                            <option value="0">0% (Isento)</option>
+                        </select>
+                    </div>`;
+            }
         }
-        document.getElementById('total-final').innerText = liq.toFixed(2) + "€";
-        document.getElementById('results').style.display = 'block';
-    }
-    render();
-</script>
-</body>
-</html>
+
+        function calcular() {
+            const bruto = parseFloat(document.getElementById('bruto').value) || 0;
+            let totalFinal = 0, html = "";
+
+            if (currentRegime === 'tco') {
+                const ss = bruto * 0.11;
+                const subDia = parseFloat(document.getElementById('sub').value) || 0;
+                const isento = (document.getElementById('sub_tipo').value === 'cartao') ? 9.60 : 6.

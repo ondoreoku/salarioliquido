@@ -12,53 +12,32 @@
     <div class="container">
         <h1>Simulador Líquido 2026</h1>
 
-        <div class="ad-slot">
-            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6163421497152187" data-ad-slot="topo" data-ad-format="auto"></ins>
-            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-        </div>
-
         <div class="regime-selector">
-            <button id="btn-tco" class="regime-btn active" onclick="setRegime('tco')">Trabalhador Dependente</button>
+            <button id="btn-tco" class="regime-btn active" onclick="setRegime('tco')">Trabalhador</button>
             <button id="btn-eni" class="regime-btn" onclick="setRegime('eni')">Recibos Verdes</button>
         </div>
 
         <section class="card">
             <div class="grid" id="inputs-grid"></div>
-            <button class="btn-calculate" onclick="calcular()">Calcular Salário</button>
+            <button class="btn-calculate" onclick="calcular()">Calcular Agora</button>
 
             <div id="results" style="display: none;">
-                <div id="detailed-results"></div>
                 <div class="highlight-box">
-                    <small style="text-transform: uppercase; letter-spacing: 1px;">Rendimento Líquido Estimado</small>
-                    <div id="out_total_final" style="font-size: 2.8rem; font-weight: 800; margin: 10px 0; color: var(--accent);"></div>
-                    <small id="sub-info-label" style="opacity: 0.9;"></small>
+                    <small>SALÁRIO LÍQUIDO MENSAL</small>
+                    <div id="out_total_final"></div>
+                    <small id="sub-info-label"></small>
                 </div>
+                <div id="detailed-results" style="margin-top: 20px;"></div>
             </div>
         </section>
 
         <article class="card info-content">
-            <h3>Informação Fiscal: Coeficientes Art. 31º CIRS</h3>
-            <p>O cálculo para trabalhadores independentes em regime simplificado baseia-se em coeficientes que determinam a parte do rendimento sujeita a IRS. Em 2026, destacam-se os seguintes:</p>
-            <ul>
-                <li><strong>75%:</strong> Atividades profissionais listadas (ex: TI, Design, Saúde).</li>
-                <li><strong>35%:</strong> Outras prestações de serviços e restauração.</li>
-                <li><strong>15%:</strong> Venda de mercadorias.</li>
-            </ul>
-            <p>Este simulador aplica também a taxa de <strong>Segurança Social de 21,4%</strong> sobre a base relevante de 70% da faturação bruta mensal.</p>
+            <h3>Custo Empresa e TSU</h3>
+            <p>Para um empregador em Portugal, o custo de um funcionário vai além do salário bruto. A **TSU (Taxa Social Única)** de 23,75% é um custo obrigatório que incide sobre o rendimento bruto, tornando o custo total para a empresa significativamente superior ao valor recebido pelo trabalhador.</p>
         </article>
 
-        <div class="ad-slot">
-            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6163421497152187" data-ad-slot="fundo" data-ad-format="auto"></ins>
-            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-        </div>
-
         <footer>
-            <p>&copy; 2026 Calculadora Fiscal Portugal</p>
-            <nav>
-                <a href="privacidade.html">Política de Privacidade</a> | 
-                <a href="termos.html">Termos de Uso</a> | 
-                <a href="contacto.html">Contacto</a>
-            </nav>
+            <a href="privacidade.html">Privacidade</a> | <a href="termos.html">Termos</a> | <a href="contacto.html">Contacto</a>
         </footer>
     </div>
     <script src="script.js"></script>

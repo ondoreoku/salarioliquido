@@ -24,16 +24,16 @@
     <div class="container">
         <header>
             <h1>Calculadora de Salário Líquido 2026</h1>
-            <p>Simulação completa para trabalhadores por conta d'outrem e independentes (CIRS).</p>
+            <p>Simulação rigorosa para contratos de trabalho e trabalhadores independentes (CIRS).</p>
         </header>
 
         <section class="card">
             <div class="grid">
                 <div class="input-group" style="grid-column: span 2;">
-                    <label>Categoria de Trabalhador</label>
+                    <label>Tipo de Rendimento</label>
                     <select id="tipoTrabalhador" onchange="toggleInputs()">
-                        <option value="outrem">Conta d'Outrem (Contrato de Trabalho)</option>
-                        <option value="eni">Independente (Recibos Verdes / ENI)</option>
+                        <option value="outrem">Trabalhador por Conta d'Outrem (TCO)</option>
+                        <option value="eni">Trabalhador Independente (Recibos Verdes)</option>
                     </select>
                 </div>
 
@@ -42,9 +42,9 @@
                     <input type="number" id="bruto" value="1500">
                 </div>
 
-                <div id="camposTCO" class="grid-sub">
+                <div id="camposTCO" class="grid-sub" style="grid-column: span 2; display: grid; gap: 20px;">
                     <div class="input-group">
-                        <label>Subsídio Alimentação/dia (€)</label>
+                        <label>Subsídio de Alimentação/dia (€)</label>
                         <input type="number" id="subsidioAlim" value="6.00" step="0.10">
                     </div>
                     <div class="input-group">
@@ -57,38 +57,47 @@
                     </div>
                 </div>
 
-                <div id="camposENI" class="grid-sub" style="display: none;">
-                    <div class="input-group">
-                        <label>Atividade (CIRS - Coeficiente)</label>
+                <div id="camposENI" class="grid-sub" style="grid-column: span 2; display: none; gap: 20px;">
+                    <div class="input-group" style="grid-column: span 2;">
+                        <label>Atividade (Coeficientes CIRS Art. 31.º)</label>
                         <select id="cirsAtividade">
-                            <option value="0.75">Serviços (Art. 151.º CIRS - 75%)</option>
-                            <option value="0.35">Ativ. Científicas/Técnicas (35%)</option>
-                            <option value="0.15">Vendas de Mercadorias (15%)</option>
+                            <option value="0.75">Serviços Profissionais (Art. 151.º - 75%)</option>
+                            <option value="0.35">Outros Serviços (Não listados - 35%)</option>
+                            <option value="0.15">Venda de Mercadorias (15%)</option>
                             <option value="0.10">Alojamento Local (10%)</option>
+                            <option value="0.95">Propriedade Intelectual (95%)</option>
                         </select>
                     </div>
                     <div class="input-group">
                         <label>Retenção na Fonte IRS</label>
                         <select id="retencaoENI">
-                            <option value="0.25">25% (Taxa Base)</option>
-                            <option value="0.20">20% (Artistas/Científicos)</option>
+                            <option value="0.25">25% (Taxa Normal)</option>
+                            <option value="0.20">20% (Científico/Artístico)</option>
                             <option value="0.115">11.5% (Até 14.500€/ano)</option>
-                            <option value="0">Isento (Art. 53.º)</option>
+                            <option value="0">Sem Retenção (Isento)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Variação Contribuição SS</label>
+                        <select id="variacaoSS">
+                            <option value="1">Base (100%)</option>
+                            <option value="0.75">Redução (-25%)</option>
+                            <option value="1.25">Agravamento (+25%)</option>
                         </select>
                     </div>
                 </div>
             </div>
 
-            <button class="btn-main" onclick="calcularSalario()">Calcular Rendimento Final</button>
+            <button class="btn-main" onclick="calcularSalario()">Calcular Salário Líquido</button>
 
             <div id="results" class="results-area" style="display: none; margin-top: 25px;">
                 <div class="grid-res">
                     <div class="res-card">
-                        <small>Rendimento Líquido</small>
+                        <small>Líquido Disponível</small>
                         <div id="out-liquido" class="big-val"></div>
                     </div>
                     <div class="res-card">
-                        <small>Total Impostos/SS</small>
+                        <small>Total de Descontos</small>
                         <div id="out-impostos" class="big-val" style="color: #ef4444;"></div>
                     </div>
                 </div>
@@ -96,30 +105,20 @@
         </section>
 
         <article class="card info-content">
-            <h2>Guia: Como Calcular o Salário Líquido em 2026</h2>
-            <p>Em 2026, a fiscalidade em Portugal exige uma análise detalhada tanto para trabalhadores dependentes como para independentes. O cálculo do <strong>salário líquido</strong> não é apenas subtrair uma percentagem fixa; envolve tabelas de retenção na fonte progressivas e regras específicas de segurança social.</p>
-            
-            
+            <h2>Como Funciona o Cálculo do Salário Líquido em 2026?</h2>
+            <p>O cálculo do rendimento líquido em Portugal é influenciado por diversas variáveis fiscais que mudam anualmente. Para os <strong>Trabalhadores por Conta d'Outrem (TCO)</strong>, a base é o salário bruto, sobre o qual incide a taxa de 11% para a Segurança Social e a retenção na fonte de IRS, que é progressiva e depende da composição do agregado familiar.</p>
 
-            <h3>Trabalhadores por Conta d'Outrem (TCO)</h3>
-            <p>Para quem possui um contrato de trabalho, os descontos são efetuados mensalmente pela entidade patronal. A <strong>Segurança Social</strong> fixa-se nos 11%, incidindo sobre o salário bruto. Já o IRS depende das tabelas de retenção que consideram o rendimento, o estado civil e o número de dependentes. O subsídio de alimentação é uma componente essencial, podendo estar isento de impostos até determinados limites legais.</p>
+            <h3>Particularidades dos Trabalhadores Independentes (CIRS)</h3>
+            <p>Para quem emite <strong>Recibos Verdes</strong>, o cálculo é mais complexo e depende dos coeficientes do Código do IRS (CIRS). Dependendo da atividade, o Estado assume que apenas uma parte do rendimento é "lucro". Por exemplo, na prestação de serviços (Art. 151.º), o coeficiente é de 75%, enquanto na venda de mercadorias é apenas de 15%. A Segurança Social dos independentes (21,4%) incide sobre 70% deste rendimento relevante.</p>
 
-            <h3>Trabalhadores Independentes (Recibos Verdes)</h3>
-            <p>A complexidade aumenta para os ENI. Aqui, o rendimento líquido é influenciado pelo <strong>coeficiente da atividade (CIRS)</strong>. Por exemplo, na prestação de serviços geral, o Estado assume que 75% do seu faturamento é lucro, tributando sobre essa base. A Segurança Social para independentes é calculada sobre 70% do rendimento relevante, com uma taxa de 21,4%. É crucial escolher o código CIRS correto para evitar pagar impostos indevidos.</p>
-
-            <h3>Dicas de Literacia Financeira</h3>
-            <ul>
-                <li><strong>Retenção na Fonte:</strong> Pode optar por uma taxa superior para evitar surpresas no acerto anual do IRS.</li>
-                <li><strong>Despesas Profissionais:</strong> ENIs no regime simplificado devem validar faturas no e-fatura para justificar os coeficientes de despesas.</li>
-                <li><strong>IAS 2026:</strong> O Indexante dos Apoios Sociais influencia os limites mínimos e máximos de contribuição.</li>
-            </ul>
+            <h3>A Importância da Retenção na Fonte</h3>
+            <p>A retenção na fonte é um adiantamento do imposto ao Estado. No regime simplificado, muitos profissionais optam pela taxa de 25%. No entanto, se o rendimento anual for baixo, pode haver lugar a isenção. Utilizar este simulador permite prever o valor que realmente terá disponível após cumprir todas as obrigações contributivas e fiscais em 2026.</p>
         </article>
 
         <footer>
             <nav>
                 <a href="privacidade.html">Privacidade</a> | <a href="termos.html">Termos</a> | <a href="contacto.html">Contacto</a>
             </nav>
-            <p style="margin-top:20px; font-size: 0.7rem;">&copy; 2026 Financeiro Pro - Informação atualizada conforme o Orçamento do Estado.</p>
         </footer>
     </div>
     <script src="script.js"></script>

@@ -1,22 +1,94 @@
-/* Navbar Global */
-.navbar-global { background: #111827; padding: 12px 0; margin-bottom: 30px; }
-.nav-container { max-width: 900px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-.nav-logo { color: white; font-weight: bold; text-decoration: none; font-size: 1.2rem; }
-.nav-links { list-style: none; display: flex; gap: 15px; margin: 0; padding: 0; }
-.nav-links a { color: #9ca3af; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
-.nav-links a:hover { color: white; }
+:root {
+    --primary: #059669; /* Verde Sucesso */
+    --primary-hover: #047857;
+    --dark: #111827;
+    --gray-bg: #f9fafb;
+    --text-main: #1f2937;
+    --border: #e5e7eb;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
 
-/* Estilo Base do Simulador */
-:root { --primary: #059669; --bg: #f9fafb; }
-body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; color: #111827; }
-.container { max-width: 850px; margin: 0 auto; padding: 0 20px; }
-.card { background: white; padding: 25px; border-radius: 12px; border: 1px solid #e5e7eb; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 25px; }
-.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.input-group label { font-size: 0.8rem; font-weight: 600; color: #374151; display: block; margin-bottom: 5px; }
-input, select { width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 6px; box-sizing: border-box; }
-.btn-main { width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: bold; margin-top: 20px; cursor: pointer; }
-.big-val { font-size: 2rem; font-weight: 800; color: var(--primary); }
-.res-card { text-align: center; background: #ecfdf5; padding: 15px; border-radius: 10px; }
-.info-content { text-align: justify; line-height: 1.6; }
-footer { text-align: center; padding: 40px 0; border-top: 1px solid #e5e7eb; }
-footer a { color: #6b7280; text-decoration: none; margin: 0 10px; font-size: 0.8rem; }
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--gray-bg);
+    color: var(--text-main);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    margin-bottom: 24px;
+}
+
+/* Navbar Global */
+.navbar-global {
+    background: var(--dark);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.nav-logo {
+    color: white;
+    font-weight: 800;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    color: #9ca3af;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: white;
+}
+
+/* Botão Padrão */
+.btn-main {
+    width: 100%;
+    background-color: var(--primary);
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-main:hover {
+    background-color: var(--primary-hover);
+}

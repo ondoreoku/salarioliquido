@@ -11,21 +11,44 @@ function calcularSalario() {
     let impostos = 0;
 
     if (tipo === 'outrem') {
+        // CÁLCULO CONTA D'OUTREM
         const ss = bruto * 0.11;
-        const subAlim = (parseFloat(document.getElementById('subsidioAlim').value) || 0) * 22;
-        let taxaIRS = 0.12; 
-        if (bruto > 1800) taxaIRS = 0.18;
-        if (bruto > 3000) taxaIRS = 0.25;
+        const valorSubAlim = parseFloat(document.getElementById('subsidioAlim').value) || 0;
+        const totalSubAlim = valorSubAlim * 22;
+
+        // Tabelas IRS 2026 simplificadas
+        let taxaIRS = 0;
+        if (bruto > 870) {
+            if (bruto <= 1250) taxaIRS = 0.08;
+            else if (bruto <= 2100) taxaIRS = 0.16;
+            else if (bruto <= 3800) taxaIRS = 0.24;
+            else taxaIRS = 0.35;
+        }
+        
+        const estado = document.getElementById('estadoCivil').value;
+        if (estado === 'casado2') taxaIRS -= 0.02;
 
         const irs = (bruto - ss) * taxaIRS;
         impostos = ss + irs;
-        liquido = (bruto - impostos) + subAlim;
+        liquido = (bruto - impostos) + totalSubAlim;
+
     } else {
+        // CÁLCULO INDEPENDENTE (CIRS)
         const coeficiente = parseFloat(document.getElementById('cirsAtividade').value);
         const taxaRetencao = parseFloat(document.getElementById('retencaoENI').value);
+        const isentoSS = document.getElementById('isentoSS').value;
+
+        // 1. IRS Retido
         const irsRetido = bruto * taxaRetencao;
-        const baseSS = (bruto * coeficiente) * 0.70;
-        const ssIndependente = baseSS * 0.214;
+
+        // 2. Segurança Social (21.4% sobre 70% do rendimento relevante)
+        let ssIndependente = 0;
+        if (isentoSS === 'nao') {
+            const rendimentoRelevante = bruto * coeficiente;
+            const baseIncidencia = rendimentoRelevante * 0.70;
+            ssIndependente = baseIncidencia * 0.214;
+        }
+
         impostos = irsRetido + ssIndependente;
         liquido = bruto - impostos;
     }

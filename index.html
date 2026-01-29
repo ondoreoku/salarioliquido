@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador de Rendimento Líquido 2026</title>
+    <title>Simulador de Salário Líquido 2026</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231e40af'%3E%3Cpath d='M19 2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 18H7V4h10v16zM15 6h-2v2h2V6zm-4 0H9v2h2V6zm4 3h-2v2h2V9zm-4 0H9v2h2V9zm4 3h-2v2h2v-2zm-4 0H9v2h2v-2zm4 3h-2v2h2v-2zm-4 0H9v2h2v-2z'/%3E%3C/svg%3E">
     <link rel="stylesheet" href="style.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6163421497152187" crossorigin="anonymous"></script>
 </head>
 <body>
-    <main class="container">
-        <h1>Simulador de Rendimento Líquido 2026</h1>
+    <div class="container">
+        <h1>Simulador Líquido 2026</h1>
 
         <div class="ad-slot">
             <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6163421497152187" data-ad-slot="topo" data-ad-format="auto"></ins>
@@ -18,34 +18,33 @@
         </div>
 
         <div class="regime-selector">
-            <button id="btn-tco" class="regime-btn active" onclick="setRegime('tco')">Conta de Outrem</button>
+            <button id="btn-tco" class="regime-btn active" onclick="setRegime('tco')">Trabalhador Dependente</button>
             <button id="btn-eni" class="regime-btn" onclick="setRegime('eni')">Recibos Verdes</button>
         </div>
 
         <section class="card">
-            <h2>Configuração de Rendimento</h2>
             <div class="grid" id="inputs-grid"></div>
-            <button class="btn-calculate" onclick="calcular()">Calcular Rendimento Líquido</button>
-        </section>
+            <button class="btn-calculate" onclick="calcular()">Calcular Salário</button>
 
-        <section id="results" class="card">
-            <div id="detailed-results"></div>
-            <div class="highlight-box">
-                <small>VALOR LÍQUIDO MENSAL ESTIMADO</small>
-                <div id="out_total_final" style="font-size: 2.5rem; font-weight: 800; color: #fbbf24;"></div>
-                <small id="sub-info-label"></small>
+            <div id="results" style="display: none;">
+                <div id="detailed-results"></div>
+                <div class="highlight-box">
+                    <small style="text-transform: uppercase; letter-spacing: 1px;">Rendimento Líquido Estimado</small>
+                    <div id="out_total_final" style="font-size: 2.8rem; font-weight: 800; margin: 10px 0; color: var(--accent);"></div>
+                    <small id="sub-info-label" style="opacity: 0.9;"></small>
+                </div>
             </div>
         </section>
 
         <article class="card info-content">
-            <h3>Guia Fiscal: Artigo 31.º do CIRS e Recibos Verdes</h3>
-            <p>O cálculo do rendimento líquido em Portugal para 2026 exige a compreensão dos coeficientes do Regime Simplificado. Conforme o <strong>Artigo 31.º do CIRS</strong>, nem todo o valor faturado é tributado da mesma forma.</p>
+            <h3>Informação Fiscal: Coeficientes Art. 31º CIRS</h3>
+            <p>O cálculo para trabalhadores independentes em regime simplificado baseia-se em coeficientes que determinam a parte do rendimento sujeita a IRS. Em 2026, destacam-se os seguintes:</p>
             <ul>
-                <li><strong>Coeficiente 0.75:</strong> Atividades profissionais de alto valor (médicos, engenheiros, advogados).</li>
-                <li><strong>Coeficiente 0.35:</strong> Atividades de restauração, hotelaria e outras prestações de serviços.</li>
-                <li><strong>Novos Coeficientes Cripto:</strong> Rendimentos de mineração (0.50) ou alienação de criptoativos (0.95).</li>
+                <li><strong>75%:</strong> Atividades profissionais listadas (ex: TI, Design, Saúde).</li>
+                <li><strong>35%:</strong> Outras prestações de serviços e restauração.</li>
+                <li><strong>15%:</strong> Venda de mercadorias.</li>
             </ul>
-            <p>Este simulador aplica as taxas de <strong>Segurança Social (21,4%)</strong> sobre 70% da base e permite prever a retenção na fonte de IRS para uma gestão financeira rigorosa.</p>
+            <p>Este simulador aplica também a taxa de <strong>Segurança Social de 21,4%</strong> sobre a base relevante de 70% da faturação bruta mensal.</p>
         </article>
 
         <div class="ad-slot">
@@ -54,12 +53,14 @@
         </div>
 
         <footer>
-            <p>&copy; 2026 Simulador Fiscal Portugal. Todos os direitos reservados.</p>
-            <a href="privacidade.html">Privacidade</a> | 
-            <a href="termos.html">Termos</a> | 
-            <a href="contacto.html">Contacto</a>
+            <p>&copy; 2026 Calculadora Fiscal Portugal</p>
+            <nav>
+                <a href="privacidade.html">Política de Privacidade</a> | 
+                <a href="termos.html">Termos de Uso</a> | 
+                <a href="contacto.html">Contacto</a>
+            </nav>
         </footer>
-    </main>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
